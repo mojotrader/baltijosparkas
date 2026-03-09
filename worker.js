@@ -88,6 +88,11 @@ export default {
       });
 
       const data = await response.json();
+      if (!response.ok || data.error) {
+        return new Response(JSON.stringify({ reply: `API klaida: ${JSON.stringify(data.error || data)}` }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
       const reply = data.content?.[0]?.text || 'Atsiprašome, įvyko klaida. Bandykite dar kartą.';
 
       return new Response(JSON.stringify({ reply }), {
