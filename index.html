@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baltijos Parkas — Namai Šventojoje</title>
+  <meta name="description" content="Baltijos Parkas — pilnai įrengti individualūs namai Šventojoje. Trumpalaikė ir ilgalaikė nuoma. 700 m iki jūros." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --dark:#1a1a1a;--navy:#1e2b3a;--mid:#6b6b6b;
+      --light:#f8f5f0;--white:#fff;--accent:#c9a96e;--border:#e0dbd3;--nav-h:76px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+    a{color:inherit;text-decoration:none}
+    button{cursor:pointer;border:none;background:none;font-family:inherit}
+    ul{list-style:none}
+    h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:400;line-height:1.15}
+    h1{font-size:clamp(2.4rem,5.5vw,4.8rem)}
+    h2{font-size:clamp(1.9rem,3.8vw,3rem)}
+    h3{font-size:clamp(1.2rem,2.2vw,1.6rem)}
+    p{font-size:clamp(0.93rem,1.4vw,1.03rem);line-height:1.75;color:var(--mid)}
+    .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+    .section{padding:100px 0}
+    .section--dark{background:var(--dark)}
+    .section--dark p{color:rgba(255,255,255,.6)}
+    .section--light{background:var(--light)}
+    .section-label{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem}
+
+    /* ── SCROLL PROGRESS ── */
+    #progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width .1s linear}
+
+    /* ── FADE UP ── */
+    .fade-up{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
+    .fade-up.visible{opacity:1;transform:translateY(0)}
+    .fade-up.d1{transition-delay:.12s}.fade-up.d2{transition-delay:.24s}
+    .fade-up.d3{transition-delay:.36s}.fade-up.d4{transition-delay:.48s}
+    .fade-up.d5{transition-delay:.6s}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes bounceY{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,169,110,.4)}70%{box-shadow:0 0 0 10px rgba(201,169,110,0)}}
+
+    /* ── NAV ── */
+    #nav{position:fixed;top:3px;left:0;right:0;z-index:1000;height:var(--nav-h);transition:background .4s,box-shadow .4s;display:flex;align-items:center}
+    #nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 1px 0 var(--border)}
+    #nav .nav-inner{width:100%;max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
+    #nav .nav-logo img{height:46px;width:auto;transition:filter .4s;filter:brightness(0) invert(1)}
+    #nav.scrolled .nav-logo img{filter:brightness(0)}
+    #nav ul{display:flex;gap:1.8rem;align-items:center}
+    #nav ul li a{font-size:.76rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.88);transition:color .25s;position:relative;padding-bottom:2px}
+    #nav ul li a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+    #nav ul li a:hover::after,#nav ul li a.active::after{width:100%}
+    #nav ul li a:hover,#nav ul li a.active{color:var(--accent)}
+    #nav.scrolled ul li a{color:var(--dark)}
+    #nav.scrolled ul li a:hover,#nav.scrolled ul li a.active{color:var(--accent)}
+    #nav .nav-cta{padding:9px 22px;border:1px solid rgba(255,255,255,.55);border-radius:2px;font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#fff;transition:all .3s;white-space:nowrap}
+    #nav.scrolled .nav-cta{border-color:var(--dark);color:var(--dark)}
+    #nav .nav-cta:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+    #nav .hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
+    #nav .hamburger span{display:block;width:24px;height:2px;background:#fff;transition:background .3s}
+    #nav.scrolled .hamburger span{background:var(--dark)}
+
+    /* ── HERO ── */
+    #hero{position:relative;height:75vh;min-height:520px;display:flex;flex-direction:column;overflow:hidden}
+    #hero .hero-bg{position:absolute;inset:0;z-index:0}
+    #hero .hero-bg img{object-position:center 22%;will-change:transform}
+    #hero .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.5) 0%,rgba(0,0,0,.28) 40%,rgba(0,0,0,.68) 100%)}
+    .hero-center{flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;padding:calc(var(--nav-h) + 20px) 2rem 24px}
+    .hero-text-wrap{width:100%;max-width:860px;text-align:center;animation:fadeUp .9s ease .2s both}
+    .hero-eyebrow{font-size:.68rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:1.1rem;display:block}
+    #hero h1{color:#fff;font-weight:300;margin-bottom:1.1rem;font-size:clamp(2.6rem,6vw,5rem)}
+    #hero h1 em{font-style:italic;color:var(--accent)}
+    .hero-sub{font-size:clamp(.92rem,1.7vw,1.1rem);color:rgba(255,255,255,.72);font-weight:300;margin-bottom:2.2rem;line-height:1.7}
+    /* Booking widget — integrated, refined */
+    .bw-wrap{margin-top:.5rem}
+    .bw-label{font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;display:block}
+    .bw-card{background:rgba(8,14,22,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-top:2px solid var(--accent);padding:22px 28px}
+    .bw-form{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+    .bw-field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:110px}
+    .bw-field--sm{flex:0 0 82px;min-width:72px}
+    .bw-field label{font-size:.58rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+    .bw-field input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;padding:10px 12px;font-size:.86rem;font-family:'Inter',sans-serif;border-radius:2px;outline:none;width:100%;transition:border-color .25s;-webkit-appearance:none;appearance:none;color-scheme:dark}
+    .bw-field input:focus{border-color:var(--accent)}
+    .bw-btn{padding:10px 26px;background:var(--accent);color:#fff;font-family:'Inter',sans-serif;font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border-radius:2px;white-space:nowrap;transition:background .25s,transform .15s;flex-shrink:0;border:1px solid var(--accent)}
+    .bw-btn:hover{background:#b8944f;border-color:#b8944f;transform:translateY(-1px)}
+    .bw-btn:active{transform:translateY(0)}
+    /* Scroll arrow */
+    .hero-scroll-arrow{position:relative;z-index:1;display:flex;justify-content:center;padding:14px 0 18px;animation:bounceY 2s ease-in-out infinite}
+    .hero-scroll-arrow svg{color:rgba(255,255,255,.4)}
+
+    /* ── STATS BAND ── */
+    #stats-band{display:grid;grid-template-columns:repeat(4,1fr);background:var(--navy)}
+    .sband-item{padding:28px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+    .sband-item:last-child{border-right:none}
+    .sband-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:#fff;line-height:1;margin-bottom:4px}
+    .sband-lbl{font-size:.62rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+    /* ── ABOUT ── */
+    #apie{display:grid;grid-template-columns:1fr 1fr;min-height:540px}
+    #apie .about-img{position:relative;min-height:440px;overflow:hidden}
+    #apie .about-img img{transition:transform 6s ease}
+    #apie .about-img:hover img{transform:scale(1.04)}
+    #apie .about-text{background:var(--light);display:flex;align-items:center;padding:80px 68px}
+    #apie .about-inner{max-width:460px}
+    #apie h2{margin-bottom:1.4rem}
+    #apie p{margin-bottom:1.3rem}
+    .divider{width:44px;height:2px;background:var(--accent);margin:1.8rem 0}
+
+    /* ── FEATURES ── */
+    #privalumai{padding:100px 0}
+    .feat-header{text-align:center;max-width:540px;margin:0 auto 60px}
+    .feat-header h2{margin-bottom:.9rem}
+    .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border)}
+    .feat-card{background:var(--white);padding:44px 36px;transition:background .3s,transform .3s;cursor:default}
+    .feat-card:hover{background:var(--light);transform:translateY(-4px)}
+    .feat-icon{width:44px;height:44px;margin-bottom:1.3rem;color:var(--accent)}
+    .feat-card h3{margin-bottom:.7rem;font-size:1.25rem}
+    .feat-card p{font-size:.9rem}
+
+    /* ── GALLERY ── */
+    #galerija{padding:100px 0;background:var(--light)}
+    .gal-header{text-align:center;max-width:540px;margin:0 auto 44px}
+    .gal-filters-wrap{text-align:center;margin-bottom:36px}
+    .gal-filters{display:inline-flex;border:1px solid var(--border);border-radius:2px;overflow:hidden}
+    .filter-btn{padding:9px 26px;font-size:.73rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);background:#fff;border-right:1px solid var(--border);transition:all .22s}
+    .filter-btn:last-child{border-right:none}
+    .filter-btn.active,.filter-btn:hover{background:var(--dark);color:#fff}
+    .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:235px;gap:6px}
+    .gal-item{position:relative;overflow:hidden;cursor:pointer;background:var(--border)}
+    .gal-item.wide{grid-column:span 2}.gal-item.tall{grid-row:span 2}
+    .gal-item img{transition:transform .6s ease}
+    .gal-item:hover img{transform:scale(1.07)}
+    .gal-item .ov{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background .3s}
+    .gal-item:hover .ov{background:rgba(0,0,0,.3)}
+    .gal-item .ov-icon{opacity:0;transform:scale(.7);transition:all .3s;color:#fff}
+    .gal-item:hover .ov-icon{opacity:1;transform:scale(1)}
+
+    /* ── LIGHTBOX ── */
+    #lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center}
+    #lightbox.open{display:flex}
+    #lightbox img{max-width:90vw;max-height:90vh;width:auto;height:auto;object-fit:contain}
+    #lightbox .lb-close{position:absolute;top:22px;right:22px;color:#fff;font-size:2rem;cursor:pointer;opacity:.65;transition:opacity .2s}
+    #lightbox .lb-close:hover{opacity:1}
+    #lightbox .lb-prev,#lightbox .lb-next{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:2.5rem;padding:14px 18px;opacity:.55;transition:opacity .2s;user-select:none}
+    #lightbox .lb-prev{left:6px}#lightbox .lb-next{right:6px}
+    #lightbox .lb-prev:hover,#lightbox .lb-next:hover{opacity:1}
+    #lightbox .lb-count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.45);font-size:.78rem;letter-spacing:.1em}
+
+    /* ── NUOMA ── */
+    #nuoma{padding:100px 0;background:var(--dark)}
+    .nuoma-header{text-align:center;max-width:600px;margin:0 auto 64px}
+    .nuoma-header h2{color:#fff;margin-bottom:.9rem}
+    .nuoma-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05)}
+    .nuoma-card{background:rgba(255,255,255,.03);padding:48px 36px;border:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .3s}
+    .nuoma-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:rgba(201,169,110,.25);transition:background .3s}
+    .nuoma-card:hover{background:rgba(255,255,255,.06)}
+    .nuoma-card:hover::before{background:var(--accent)}
+    .nuoma-card-icon{width:36px;height:36px;color:var(--accent);margin-bottom:1.2rem}
+    .nuoma-card h3{color:#fff;font-size:1.5rem;margin-bottom:.8rem}
+    .nuoma-card .nuoma-desc{color:rgba(255,255,255,.5);font-size:.88rem;margin-bottom:1.5rem}
+    .nuoma-benefits{margin-bottom:1.8rem;flex:1}
+    .nuoma-benefits li{color:rgba(255,255,255,.6);font-size:.87rem;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:flex-start;gap:9px;line-height:1.4}
+    .nuoma-benefits li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px}
+    .nuoma-prices{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:16px 18px;margin-bottom:1.8rem;border-radius:2px}
+    .nuoma-prices .price-title{font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .nuoma-prices .price-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.83rem}
+    .nuoma-prices .price-row:last-child{border-bottom:none;font-weight:600;color:#fff;padding-top:8px}
+    .nuoma-prices .price-row span:first-child{color:rgba(255,255,255,.5)}
+    .nuoma-prices .price-row span:last-child{color:#fff}
+    .nuoma-prices .price-row:last-child span{color:var(--accent)}
+    .nuoma-btn{display:inline-block;padding:13px 28px;font-size:.73rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;border-radius:2px;transition:all .28s;text-align:center}
+    .nuoma-btn-primary{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+    .nuoma-btn-primary:hover{background:#b8944f;border-color:#b8944f;transform:translateY(-2px)}
+    .nuoma-btn-outline{background:transparent;color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.3)}
+    .nuoma-btn-outline:hover{border-color:#fff;color:#fff;transform:translateY(-2px)}
+
+    /* ── KAINOS ── */
+    #kainos{padding:100px 0;background:var(--white)}
+    .kainos-header{text-align:center;margin-bottom:52px}
+    .kainos-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:400;font-style:italic;color:var(--dark)}
+    .kainos-table{width:100%;border-collapse:collapse;margin-bottom:44px;box-shadow:0 4px 32px rgba(0,0,0,.07)}
+    .kainos-table thead th{background:var(--navy);color:#fff;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.03em;padding:18px 24px;text-align:center;border-right:1px solid rgba(255,255,255,.1)}
+    .kainos-table thead th:last-child{border-right:none}
+    .kainos-table tbody td{padding:16px 24px;text-align:center;font-size:.92rem;color:var(--dark);border:1px solid var(--border);background:#fff;transition:background .2s}
+    .kainos-table tbody tr:hover td{background:var(--light)}
+    .kainos-table tbody td.total{font-weight:600;color:var(--navy);background:#f0f4f8}
+    .kainos-notes{max-width:760px;margin:0 auto 36px}
+    .kainos-notes li{font-size:.88rem;color:var(--mid);padding:5px 0 5px 16px;position:relative;line-height:1.6}
+    .kainos-notes li::before{content:'•';position:absolute;left:0;color:var(--accent)}
+    .kainos-notes li a{color:var(--accent)}
+    .kainos-cta{text-align:center}
+
+    /* ── APŽIŪRA ── */
+    #apziura{padding:100px 0;background:var(--navy)}
+    .apziura-inner{display:grid;grid-template-columns:7fr 5fr;gap:80px;align-items:start}
+    /* form is first (left), text is second (right) */
+    .apziura-text h2{color:#fff;margin-bottom:1rem}
+    .apziura-text .apziura-sub{color:rgba(255,255,255,.58);margin-bottom:2rem}
+    .apziura-items{display:flex;flex-direction:column;gap:18px}
+    .apziura-item{display:flex;align-items:flex-start;gap:14px}
+    .apziura-item-icon{width:38px;height:38px;flex-shrink:0;background:rgba(201,169,110,.12);border:1px solid rgba(201,169,110,.28);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--accent)}
+    .apziura-item h4{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#fff;margin-bottom:2px}
+    .apziura-item p{font-size:.83rem;color:rgba(255,255,255,.46);margin:0}
+    /* viewing form */
+    .vform{display:flex;flex-direction:column;gap:14px}
+    .vform-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:#fff;font-weight:400;margin-bottom:4px}
+    .fg{display:flex;flex-direction:column;gap:5px}
+    .fg label{font-size:.62rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.44)}
+    .fg input,.fg select,.fg textarea{width:100%;padding:12px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);font-family:'Inter',sans-serif;font-size:.88rem;color:#fff;border-radius:2px;outline:none;transition:border-color .25s;-webkit-appearance:none;appearance:none}
+    .fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,.28)}
+    .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--accent)}
+    .fg select{color:rgba(255,255,255,.65);background-color:rgba(20,30,44,.9)}
+    .fg select option{background:var(--navy);color:#fff}
+    .fg textarea{resize:vertical;min-height:90px}
+    .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .fsuccess{display:none;padding:13px 18px;background:rgba(46,125,50,.2);border:1px solid rgba(46,125,50,.4);color:#81c784;font-size:.86rem;border-radius:2px}
+    .fsuccess.show{display:block}
+    .submit-btn{padding:14px 36px;background:var(--accent);color:#fff;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.17em;text-transform:uppercase;border-radius:2px;transition:background .28s,transform .15s;cursor:pointer;border:none;align-self:flex-start}
+    .submit-btn:hover{background:#b8944f;transform:translateY(-2px)}
+    .submit-btn-dark{background:var(--dark)}
+    .submit-btn-dark:hover{background:var(--accent)}
+
+    /* ── VIETA ── */
+    #vieta{padding:80px 0 0;background:var(--light)}
+    .vieta-header{text-align:center;max-width:640px;margin:0 auto 52px}
+    .vieta-header h2{margin-bottom:1rem}
+    .vieta-map-wrap{position:relative;width:100%;height:520px;overflow:hidden}
+    .vieta-map-wrap iframe{width:100%;height:100%;border:none;display:block}
+    .vieta-panel{position:absolute;top:28px;right:28px;background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border:1px solid var(--border);padding:28px 30px;border-radius:2px;box-shadow:0 8px 40px rgba(0,0,0,.12);max-width:280px;z-index:2}
+    .vieta-panel-title{font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+    .vieta-panel h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--dark);margin-bottom:1.2rem;line-height:1.2}
+    .dist-list{display:flex;flex-direction:column;gap:0;margin-bottom:1.4rem}
+    .dist-item{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border)}
+    .dist-item:first-child{border-top:1px solid var(--border)}
+    .dist-lbl{font-size:.88rem;color:var(--dark);display:flex;align-items:center;gap:9px}
+    .dist-lbl{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--mid)}
+    .dist-lbl svg{color:var(--accent);flex-shrink:0}
+    .dist-val{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--accent);font-weight:500}
+    .vieta-map-open{display:inline-flex;align-items:center;gap:7px;font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--dark);border-bottom:1px solid var(--border);padding-bottom:2px;transition:color .2s,border-color .2s}
+    .vieta-map-open:hover{color:var(--accent);border-color:var(--accent)}
+
+    /* ── KONTAKTAI ── */
+    #kontaktai{padding:100px 0;background:var(--light)}
+    .contact-inner{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start}
+    #kontaktai h2{margin-bottom:1rem}
+    .contact-details{display:flex;flex-direction:column;gap:1.4rem;margin-bottom:2.2rem}
+    .crow{display:flex;align-items:flex-start;gap:13px}
+    .cicon{width:38px;height:38px;background:#fff;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent)}
+    .ctext span{display:block;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+    .ctext a,.ctext p{font-size:.92rem;color:var(--dark);line-height:1.5}
+    .csocials{display:flex;gap:10px}
+    .social-btn{width:38px;height:38px;background:#fff;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--dark);transition:all .22s}
+    .social-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+    .cform{display:flex;flex-direction:column;gap:16px}
+    .cform .fg label{color:var(--dark)}
+    .cform .fg input,.cform .fg select,.cform .fg textarea{background:#fff;border-color:var(--border);color:var(--dark)}
+    .cform .fg input::placeholder,.cform .fg textarea::placeholder{color:var(--mid)}
+    .cform .fg select{color:var(--mid);background-color:#fff}
+    .cform .fg select option{background:#fff;color:var(--dark)}
+    .cform .fg input:focus,.cform .fg select:focus,.cform .fg textarea:focus{border-color:var(--accent)}
+    .cform .fsuccess{background:#e8f5e9;border-color:#a5d6a7;color:#2e7d32}
+
+    /* ── FOOTER ── */
+    footer{background:#111;color:rgba(255,255,255,.45);padding:52px 0 32px}
+    .footer-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px}
+    .footer-brand img{height:48px;width:auto;filter:brightness(0) invert(1);opacity:.75;margin-bottom:1.1rem}
+    .footer-brand p{font-size:.83rem;line-height:1.7}
+    .fcol h4{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:1.1rem}
+    .fcol ul{display:flex;flex-direction:column;gap:.55rem}
+    .fcol ul li a{font-size:.83rem;color:rgba(255,255,255,.42);transition:color .22s}
+    .fcol ul li a:hover{color:var(--accent)}
+    .footer-bottom{max-width:1200px;margin:36px auto 0;padding:22px 2rem 0;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;font-size:.76rem}
+
+    /* ── FLOATING CTA ── */
+    #sticky-cta{position:fixed;bottom:96px;right:28px;z-index:900;opacity:0;transform:translateY(16px);transition:opacity .4s,transform .4s;pointer-events:none}
+    #sticky-cta.show{opacity:1;transform:translateY(0);pointer-events:auto}
+    #sticky-cta a{display:block;padding:11px 22px;background:var(--accent);color:#fff;font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;border-radius:2px;box-shadow:0 4px 20px rgba(201,169,110,.4);transition:background .25s;animation:pulse 2.5s ease-in-out infinite}
+    #sticky-cta a:hover{background:#b8944f}
+
+    /* ── WHATSAPP ── */
+    #wa-float{position:fixed;bottom:28px;right:28px;z-index:900;width:54px;height:54px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.35);transition:transform .22s,box-shadow .22s}
+    #wa-float:hover{transform:scale(1.1);box-shadow:0 6px 22px rgba(37,211,102,.5)}
+    #wa-float svg{color:#fff}
+
+    /* ── MOBILE MENU ── */
+    #mobile-menu{display:none;position:fixed;inset:0;z-index:999;background:#fff;flex-direction:column;align-items:center;justify-content:center;gap:1.8rem}
+    #mobile-menu.open{display:flex}
+    #mobile-menu a{font-size:1.5rem;font-family:'Cormorant Garamond',serif;color:var(--dark)}
+    #mobile-menu a:hover{color:var(--accent)}
+    #mobile-menu .m-close{position:absolute;top:22px;right:22px;font-size:2rem;color:var(--dark)}
+    #mobile-menu .m-cta{font-size:.75rem;font-family:'Inter',sans-serif;padding:12px 34px;background:var(--accent);color:#fff;letter-spacing:.16em;text-transform:uppercase;border-radius:2px;margin-top:.5rem}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      #apie{grid-template-columns:1fr}
+      #apie .about-img{min-height:360px}
+      #apie .about-text{padding:60px 44px}
+      .feat-grid{grid-template-columns:repeat(2,1fr)}
+      .gal-grid{grid-template-columns:repeat(3,1fr)}
+      .nuoma-grid{grid-template-columns:1fr}
+      .vieta-map-wrap{height:420px}
+      .vieta-panel{max-width:240px;padding:20px 22px}
+      .contact-inner{grid-template-columns:1fr}
+      .apziura-inner{grid-template-columns:1fr}
+      .footer-inner{grid-template-columns:1fr 1fr;gap:32px}
+      #stats-band{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:768px){
+      :root{--nav-h:62px}
+      .section{padding:68px 0}
+      #nav ul,#nav .nav-cta{display:none}
+      #nav .hamburger{display:flex}
+      .feat-grid{grid-template-columns:1fr}
+      .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:190px}
+      .gal-item.wide{grid-column:span 1}.gal-item.tall{grid-row:span 1}
+      #apie .about-text{padding:44px 24px}
+      .frow{grid-template-columns:1fr}
+      .footer-inner{grid-template-columns:1fr}
+      .footer-bottom{flex-direction:column;gap:7px;text-align:center}
+      .bw-form{flex-direction:column;align-items:stretch}
+      .bw-field,.bw-field--sm{flex:none;width:100%}
+      .bw-btn{align-self:center;width:auto}
+    }
+    @media(max-width:480px){
+      .gal-grid{grid-template-columns:1fr}
+      .kainos-table{display:block;overflow-x:auto}
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><img src="../brand_assets/baltijos parkas logo.png" alt="Baltijos Parkas" /></a>
+    <ul>
+      <li><a href="#apie">Apie mus</a></li>
+      <li><a href="#privalumai">Privalumai</a></li>
+      <li><a href="#galerija">Galerija</a></li>
+      <li><a href="#nuoma">Nuoma</a></li>
+      <li><a href="#pardavimas">Pardavimas</a></li>
+      <li><a href="#apziura">Apžiūra</a></li>
+      <li><a href="#vieta">Vieta</a></li>
+    </ul>
+    <a href="#kontaktai" class="nav-cta">Susisiekti</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <button class="m-close" id="m-close">&times;</button>
+  <a href="#apie" class="ml">Apie mus</a>
+  <a href="#privalumai" class="ml">Privalumai</a>
+  <a href="#galerija" class="ml">Galerija</a>
+  <a href="#nuoma" class="ml">Nuoma</a>
+  <a href="#pardavimas" class="ml">Pardavimas</a>
+  <a href="#apziura" class="ml">Apžiūra</a>
+  <a href="#vieta" class="ml">Vieta</a>
+  <a href="#kontaktai" class="m-cta ml">Susisiekti</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-bg"><img src="../brand_assets/D95A0306-Edit.jpg" alt="Baltijos Parkas" id="hero-img" /></div>
+  <div class="hero-center">
+    <div class="hero-text-wrap">
+      <span class="hero-eyebrow">Baltijos Parkas &mdash; Šventoji</span>
+      <h1>Namai, kuriuose<br /><em>norisi likti</em></h1>
+      <p class="hero-sub">Pilnai įrengti individualūs namai ramiame kvartale.<br />700 m iki jūros. Trumpalaikė ir ilgalaikė nuoma.</p>
+      <div class="bw-wrap">
+        <span class="bw-label">Pasirinkite norimas datas ir rezervuokite</span>
+        <div class="bw-card">
+          <div class="bw-form">
+            <div class="bw-field"><label for="bw-from">Atvykimas</label><input type="date" id="bw-from" /></div>
+            <div class="bw-field"><label for="bw-to">Išvykimas</label><input type="date" id="bw-to" /></div>
+            <div class="bw-field bw-field--sm"><label for="bw-adults">Suaugę</label><input type="number" id="bw-adults" value="2" min="1" max="9" /></div>
+            <div class="bw-field bw-field--sm"><label for="bw-children">Vaikai</label><input type="number" id="bw-children" value="0" min="0" max="8" /></div>
+            <button class="bw-btn" onclick="goToBooking()">Tikrinti</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-arrow">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+  </div>
+</section>
+
+<!-- ═══ STATS BAND ═══ -->
+<div id="stats-band">
+  <div class="sband-item"><div class="sband-num"><span class="counter" data-target="700">0</span> m</div><div class="sband-lbl">iki paplūdimio</div></div>
+  <div class="sband-item"><div class="sband-num"><span class="counter" data-target="96">0</span> m²</div><div class="sband-lbl">namo plotas</div></div>
+  <div class="sband-item"><div class="sband-num"><span class="counter" data-target="4">0</span></div><div class="sband-lbl">parkavimo vietos</div></div>
+  <div class="sband-item"><div class="sband-num"><span class="counter" data-target="500">0</span> m</div><div class="sband-lbl">iki dviračių tako</div></div>
+</div>
+
+<!-- ═══ APIE ═══ -->
+<section id="apie">
+  <div class="about-img fade-up"><img src="../brand_assets/D95A0226-Edit.jpg" alt="Svetainė" /></div>
+  <div class="about-text">
+    <div class="about-inner">
+      <span class="section-label">Apie mus</span>
+      <h2 class="fade-up">Vienintelis individualių namų kvartalas miestelio centre</h2>
+      <div class="divider"></div>
+      <p class="fade-up d1"><strong>Baltijos Parkas</strong> — naujai besikurianti gyvenvietė Šventojoje, kur viskas nauja, modernu ir šiuolaikiška. Nuomojame pilnai įrengtus individualius namus ramiame, uždarame kvartale prie jūros.</p>
+      <p class="fade-up d2">Namai puikiai tinka tiek trumpalaikiam poilsiui, tiek ilgalaikiam gyvenimui. Čia rasite privatumą, komfortą ir viską, ko reikia pilnaverčiam gyvenimui pajūryje.</p>
+      <a href="https://ibe.sabeeapp.com/v3/p/Baltijos-parkas?p=76684af95e650161&lang=Lt" target="_blank" rel="noopener" class="nuoma-btn nuoma-btn-primary fade-up d4" style="margin-top:1.5rem;display:inline-block">Rezervuoti</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRIVALUMAI ═══ -->
+<section id="privalumai" class="section">
+  <div class="container">
+    <div class="feat-header">
+      <span class="section-label">Privalumai</span>
+      <h2 class="fade-up">Kodėl verta rinktis Baltijos Parką?</h2>
+      <p class="fade-up d1">Modernus gyvenimas pajūryje — be kompromisų</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card fade-up"><svg class="feat-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><h3>Modernus dizainas</h3><p>Modernus architektūrinis sprendimas, 2,8 m lubos, šildomos grindys. Šiuolaikiškas stilius, kuriame norisi gyventi.</p></div>
+      <div class="feat-card fade-up d1"><svg class="feat-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg><h3>Privati terasa</h3><p>Individuali terasa prie kiekvieno namo — puiki vieta pusryčiams, vakarienei lauke ar vakarui su draugais.</p></div>
+      <div class="feat-card fade-up d2"><svg class="feat-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg><h3>700 m iki jūros</h3><p>Miestelio centrinėje dalyje — iki paplūdimio pėsčiomis vos per 10 minučių ir 500 m iki Ošupio dviračių tako Palangos link.</p></div>
+      <div class="feat-card fade-up d3"><svg class="feat-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><h3>Uždara teritorija</h3><p>Aptverta, saugi aplinka su želdynais ir tvora prie kiekvieno namo — idealu šeimoms su vaikais ir augintiniais.</p></div>
+      <div class="feat-card fade-up d4"><svg class="feat-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg><h3>4 vietos automobiliams</h3><p>Kiekviename kieme telpa iki 4 automobilių. Nereikia sukti galvos dėl parkavimo vasaros sezono metu.</p></div>
+      <div class="feat-card fade-up d5"><svg class="feat-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg><h3>Pilnai įrengta</h3><p>Viessmann dujinis katilas, oro kondicionierius, Electrolux technika, modernūs baldai — viskas įtraukta į kainą.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALERIJA ═══ -->
+<section id="galerija" class="section section--light">
+  <div class="container">
+    <div class="gal-header"><span class="section-label">Galerija</span><h2 class="fade-up">Pamatykite patys</h2><p class="fade-up d1">Interjeras, eksterjeras ir aplinka</p></div>
+    <div class="gal-filters-wrap fade-up d2"><div class="gal-filters"><button class="filter-btn active" data-filter="all">Visi</button><button class="filter-btn" data-filter="interior">Interjeras</button><button class="filter-btn" data-filter="exterior">Eksterjeras</button></div></div>
+    <div class="gal-grid">
+      <div class="gal-item wide fade-up" data-cat="exterior"><img src="../brand_assets/D95A0306-Edit.jpg" alt="Vila" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item fade-up d1" data-cat="interior"><img src="../brand_assets/D95A0226-Edit.jpg" alt="Svetainė" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item tall fade-up d2" data-cat="interior"><img src="../brand_assets/D95A0175.jpg" alt="Miegamasis" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item fade-up d3" data-cat="interior"><img src="../brand_assets/D95A0243-Edit.jpg" alt="Virtuvė" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item fade-up" data-cat="exterior"><img src="../brand_assets/D95A0301.jpg" alt="Terasa" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item fade-up d1" data-cat="interior"><img src="../brand_assets/D95A0215-Edit.jpg" alt="Vonios kambarys" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item fade-up d2" data-cat="interior"><img src="../brand_assets/D95A0164-Edit.jpg" alt="Miegamasis 2" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item wide fade-up d3" data-cat="exterior"><img src="../brand_assets/D95A0354.jpg" alt="Kiemas" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item fade-up" data-cat="interior"><img src="../brand_assets/D95A0185-Edit.jpg" alt="Miegamasis 3" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item fade-up d1" data-cat="interior"><img src="../brand_assets/D95A0190-Edit.jpg" alt="Miegamasis 4" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item fade-up d2" data-cat="exterior"><img src="../brand_assets/D95A0303.jpg" alt="Kiemas 2" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+      <div class="gal-item fade-up d3" data-cat="interior"><img src="../brand_assets/D95A0195-Edit.jpg" alt="Miegamasis 5" loading="lazy"/><div class="ov"><svg class="ov-icon" width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></div></div>
+    </div>
+  </div>
+</section>
+
+<div id="lightbox">
+  <button class="lb-close" id="lb-close">&times;</button>
+  <button class="lb-prev" id="lb-prev">&#8249;</button>
+  <img id="lb-img" src="" alt="" />
+  <button class="lb-next" id="lb-next">&#8250;</button>
+  <div class="lb-count" id="lb-count"></div>
+</div>
+
+<!-- ═══ NUOMA ═══ -->
+<section id="nuoma" class="section section--dark">
+  <div class="container">
+    <div class="nuoma-header">
+      <span class="section-label">Nuoma</span>
+      <h2 class="fade-up">Pasirinkite savo nuomos tipą</h2>
+      <p class="fade-up d1">Nuo kelių dienų iki nuolatinio gyvenimo pajūryje</p>
+    </div>
+    <div class="nuoma-grid">
+
+      <!-- Trumpalaikė -->
+      <div class="nuoma-card fade-up">
+        <svg class="nuoma-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <h3>Trumpalaikė nuoma</h3>
+        <p class="nuoma-desc">Savaitgalis, atostogos ar šventė su šeima. Min. trukmė — 2 nakvynės, iki 9 svečių.</p>
+        <ul class="nuoma-benefits">
+          <li>Pilnai įrengtas namas iki 9 asmenų</li>
+          <li>Privati terasa su lauko baldais ir grilu</li>
+          <li>Wi-Fi, Smart TV, oro kondicionierius</li>
+          <li>Pilnai sukomplektuota virtuvė</li>
+          <li>4 parkavimo vietos kieme</li>
+          <li>Palankios atšaukimo sąlygos</li>
+        </ul>
+        <div class="nuoma-prices">
+          <p class="price-title">Nakvynės kaina</p>
+          <div class="price-row"><span>Iki 07.10</span><span>120–180 €</span></div>
+          <div class="price-row"><span>07.11–08.23</span><span>190–270 €</span></div>
+          <div class="price-row"><span>08.24–08.30</span><span>150–220 €</span></div>
+          <div class="price-row"><span>Nuo 08.31</span><span>120–180 €</span></div>
+        </div>
+        <a href="https://ibe.sabeeapp.com/v3/p/Baltijos-parkas?p=76684af95e650161&lang=Lt" target="_blank" rel="noopener" class="nuoma-btn nuoma-btn-primary">Rezervuoti</a>
+      </div>
+
+      <!-- Vidutinės trukmės -->
+      <div class="nuoma-card fade-up d2">
+        <svg class="nuoma-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <h3>Vidutinės trukmės nuoma</h3>
+        <p class="nuoma-desc">1–12 mėnesių nuoma sezonui ar nuolatiniam poilsiui. Idealiai tinka nuotoliniam darbui.</p>
+        <ul class="nuoma-benefits">
+          <li>Lankstus terminas nuo 1 iki 12 mėn.</li>
+          <li>Fiksuota kaina visam laikotarpiui</li>
+          <li>Greitas Wi-Fi — puiku nuotoliniam darbui</li>
+          <li>Privati aplinka šeimai visą sezoną</li>
+          <li>700 m iki paplūdimio kiekvieną dieną</li>
+          <li>Galimybė pratęsti ar pereiti į ilgalaikę</li>
+        </ul>
+        <div class="nuoma-prices">
+          <p class="price-title">Nakvynės kaina</p>
+          <div class="price-row"><span>Iki 06.22 ir nuo 09.01</span><span>80 €</span></div>
+          <div class="price-row"><span>06.23–07.02</span><span>120 €</span></div>
+          <div class="price-row"><span>07.03–08.15</span><span>200 €</span></div>
+          <div class="price-row"><span>08.16–08.31</span><span>120 €</span></div>
+        </div>
+        <a href="#kontaktai" class="nuoma-btn nuoma-btn-outline">Susisiekti</a>
+      </div>
+
+      <!-- Ilgalaikė -->
+      <div class="nuoma-card fade-up d4">
+        <svg class="nuoma-card-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <h3>Ilgalaikė nuoma</h3>
+        <p class="nuoma-desc">12+ mėnesių — stabilumas ir privatumas ištisus metus pajūryje.</p>
+        <ul class="nuoma-benefits">
+          <li>Stabili kaina ir sąlygos ištisus metus</li>
+          <li>Uždara saugi gyvenvietė</li>
+          <li>Privati aplinka su želdynais ir tvora prie kiekvieno namo</li>
+          <li>950 m iki parduotuvių (Iki, Rimi, Maxima)</li>
+          <li>Mokyklos ir darželiai šalia</li>
+          <li>Lankstus sutarties terminas ir sąlygos</li>
+        </ul>
+        <div class="nuoma-prices">
+          <p class="price-title">Mėnesio kaina</p>
+          <div class="price-row"><span>Nuoma</span><span>1.000 €/mėn</span></div>
+          <div class="price-row"><span>+ Komunaliniai</span><span>~100 €/mėn</span></div>
+          <div class="price-row"><span>+ Aplinkos priežiūra</span><span>50 €/mėn</span></div>
+          <div class="price-row"><span>Viso</span><span>nuo 1.150 €/mėn</span></div>
+        </div>
+        <a href="#apziura" class="nuoma-btn nuoma-btn-outline">Užsiregistruoti apžiūrai</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ APŽIŪRA ═══ -->
+<section id="apziura">
+  <div style="background:var(--navy);padding:100px 0">
+    <div class="container">
+      <div class="apziura-inner">
+
+        <!-- LEFT: Form -->
+        <div class="fade-up">
+          <form class="vform" id="viewing-form" novalidate>
+            <p class="vform-title">Užsiregistruokite apžiūrai</p>
+            <div class="frow">
+              <div class="fg"><label for="v-name">Vardas *</label><input type="text" id="v-name" placeholder="Jūsų vardas" required /></div>
+              <div class="fg"><label for="v-phone">Telefonas *</label><input type="tel" id="v-phone" placeholder="+370 ..." required /></div>
+            </div>
+            <div class="fg"><label for="v-email">El. paštas</label><input type="email" id="v-email" placeholder="jusu@email.lt" /></div>
+            <div class="fg">
+              <label for="v-type">Nuomos tipas *</label>
+              <select id="v-type" required><option value="">Pasirinkite...</option><option value="vidutines">Vidutinės trukmės (1–12 mėn.)</option><option value="ilgalaike">Ilgalaikė (12+ mėn.)</option></select>
+            </div>
+            <div class="frow">
+              <div class="fg"><label for="v-date">Pageidaujama data</label><input type="date" id="v-date" /></div>
+              <div class="fg"><label for="v-time">Pageidaujamas laikas</label><input type="time" id="v-time" /></div>
+            </div>
+            <div class="fg"><label for="v-msg">Papildoma informacija</label><textarea id="v-msg" placeholder="Klausimai, pageidavimai..."></textarea></div>
+            <button type="submit" class="submit-btn">Registruotis apžiūrai</button>
+            <div class="fsuccess" id="viewing-success">Ačiū! Susisieksime per 24 val. dėl apžiūros datos.</div>
+          </form>
+        </div>
+
+        <!-- RIGHT: Text -->
+        <div class="apziura-text fade-up d2">
+          <span class="section-label">Apžiūra</span>
+          <h2>Planuojate apsigyventi ilgiau?</h2>
+          <p class="apziura-sub">Rezervuokite namo apžiūrą — asmeniškai parodysime namus ir aptarsime nuomos sąlygas, terminus ir kainodarą.</p>
+          <div class="apziura-items">
+            <div class="apziura-item">
+              <div class="apziura-item-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+              <div><h4>Pasirinkite patogų laiką</h4><p>Suderinsime apžiūros datą pagal jūsų grafiką.</p></div>
+            </div>
+            <div class="apziura-item">
+              <div class="apziura-item-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+              <div><h4>Vidutinės trukmės nuoma</h4><p>Sezoninė nuoma 1–12 mėn. su lanksčiomis sąlygomis.</p></div>
+            </div>
+            <div class="apziura-item">
+              <div class="apziura-item-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg></div>
+              <div><h4>Ilgalaikė nuoma (12+ mėn.)</h4><p>Stabilumas, privati aplinka, visas komfortas ištisus metus.</p></div>
+            </div>
+            <div class="apziura-item">
+              <div class="apziura-item-icon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+              <div><h4>+370 691 65685</h4><p>Paskambinkite ir aptarsime viską telefonu.</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VIETA ═══ -->
+<section id="vieta">
+  <div class="container">
+    <div class="vieta-header fade-up">
+      <span class="section-label">Vieta</span>
+      <h2>Šventoji — Baltijos pajūris</h2>
+      <p>Mokyklos g. 45, Šventoji — miestelio centrinė dalis, 700 m nuo Baltijos jūros paplūdimio. Ramu, tačiau viskas pasiekiama pėsčiomis ar dviračiu.</p>
+    </div>
+  </div>
+
+  <div class="vieta-map-wrap fade-up d1">
+    <iframe src="https://maps.google.com/maps?q=Baltijos+Parkas+%C5%A0ventoji&t=&z=16&ie=UTF8&iwloc=B&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Baltijos Parkas vieta"></iframe>
+    <div class="vieta-panel fade-up d2">
+      <div class="vieta-panel-title">Baltijos Parkas</div>
+      <h3>Mokyklos g. 45<br>Šventoji</h3>
+      <div class="dist-list">
+        <div class="dist-item"><span class="dist-lbl"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Paplūdimys</span><span class="dist-val">700 m</span></div>
+        <div class="dist-item"><span class="dist-lbl"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Dviračių takas</span><span class="dist-val">500 m</span></div>
+        <div class="dist-item"><span class="dist-lbl"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Parduotuvės</span><span class="dist-val">950 m</span></div>
+        <div class="dist-item"><span class="dist-lbl"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Palangos oro uostas</span><span class="dist-val">7 km</span></div>
+        <div class="dist-item" style="border-bottom:none"><span class="dist-lbl"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Palangos centras</span><span class="dist-val">13 km</span></div>
+      </div>
+      <a href="https://maps.google.com/?q=Mokyklos+g.+45,+%C5%A0ventoji" target="_blank" rel="noopener" class="vieta-map-open">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        Atidaryti žemėlapyje
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══ KONTAKTAI ═══ -->
+<section id="kontaktai" class="section section--light">
+  <div class="container">
+    <div class="contact-inner">
+      <div>
+        <span class="section-label">Kontaktai</span>
+        <h2 class="fade-up">Susisiekite su mumis</h2>
+        <p class="fade-up d1" style="margin-bottom:2.2rem">Parašykite arba paskambinkite — atsakysime greitai ir aptarsime visas sąlygas.</p>
+        <div class="contact-details fade-up d2">
+          <div class="crow"><div class="cicon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div><div class="ctext"><span>Telefonas</span><a href="tel:+37069165685">+370 691 65685</a></div></div>
+          <div class="crow"><div class="cicon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div><div class="ctext"><span>El. paštas</span><a href="mailto:labas@baltijosparkas.lt">labas@baltijosparkas.lt</a></div></div>
+          <div class="crow"><div class="cicon"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="ctext"><span>Adresas</span><p>Mokyklos g. 45, 00303 Šventoji</p></div></div>
+        </div>
+        <div class="csocials fade-up d3">
+          <a href="https://www.instagram.com/baltijosparkas" target="_blank" rel="noopener" class="social-btn" title="Instagram"><svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://www.facebook.com/profile.php?id=61576996551514" target="_blank" rel="noopener" class="social-btn" title="Facebook"><svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://wa.me/37069165685" target="_blank" rel="noopener" class="social-btn" title="WhatsApp"><svg width="17" height="17" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        </div>
+      </div>
+      <div class="fade-up d1">
+        <form class="cform" id="contact-form" novalidate>
+          <div class="frow">
+            <div class="fg"><label for="c-name">Vardas *</label><input type="text" id="c-name" placeholder="Jūsų vardas" required /></div>
+            <div class="fg"><label for="c-phone">Telefonas</label><input type="tel" id="c-phone" placeholder="+370 ..." /></div>
+          </div>
+          <div class="fg"><label for="c-email">El. paštas *</label><input type="email" id="c-email" placeholder="jusu@email.lt" required /></div>
+          <div class="fg">
+            <label for="c-type">Nuomos tipas</label>
+            <select id="c-type"><option value="">Pasirinkite...</option><option value="short">Trumpalaikė nuoma</option><option value="mid">Vidutinės trukmės nuoma</option><option value="long">Ilgalaikė nuoma</option><option value="other">Kita</option></select>
+          </div>
+          <div class="frow">
+            <div class="fg"><label for="c-from">Atvykimas</label><input type="date" id="c-from" /></div>
+            <div class="fg"><label for="c-to">Išvykimas</label><input type="date" id="c-to" /></div>
+          </div>
+          <div class="fg"><label for="c-msg">Žinutė</label><textarea id="c-msg" placeholder="Papildoma informacija, klausimai..."></textarea></div>
+          <button type="submit" class="submit-btn submit-btn-dark">Siųsti užklausą</button>
+          <div class="fsuccess" id="form-success">Ačiū! Jūsų žinutė gauta. Susisieksime per 24 val.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PARDAVIMAS ═══ -->
+<section id="pardavimas" class="section" style="background:var(--navy);overflow:hidden">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
+      <div>
+        <span class="section-label fade-up">Pardavimas</span>
+        <h2 class="fade-up d1" style="color:#fff;margin-bottom:1.2rem">Investuokite į savo ateitį pajūryje</h2>
+        <div style="width:44px;height:2px;background:var(--accent);margin:1.5rem 0" class="fade-up d2"></div>
+        <p class="fade-up d2" style="color:rgba(255,255,255,.62);margin-bottom:1.3rem">Baltijos Parkas — tai ne tik poilsis, bet ir išmintinga investicija. Siūlome unikalią galimybę įsigyti individualų namą Šventojoje — moderniame, naujame kvartale su visa reikalinga infrastruktūra ir privačia aplinka.</p>
+        <p class="fade-up d3" style="color:rgba(255,255,255,.62);margin-bottom:2rem">Kiekvienas namas — 96,45 m², privatus 5–7 arų sklypas, 4 automobilių parkavimo vietos. Galimas dalinis arba pilnas apdailos paketas — pasirinkite pagal poreikį ir biudžetą.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem" class="fade-up d3">
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:16px 24px;border-radius:2px;text-align:center">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:#fff;line-height:1">229 000 €</div>
+            <div style="font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-top:4px">Su daline apdaila</div>
+          </div>
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:16px 24px;border-radius:2px;text-align:center">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:#fff;line-height:1">349 000 €</div>
+            <div style="font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-top:4px">Su pilna apdaila</div>
+          </div>
+        </div>
+        <a href="pardavimai.html" class="nuoma-btn nuoma-btn-primary fade-up d4" style="display:inline-block">Daugiau informacijos</a>
+      </div>
+      <div class="fade-up d2" style="position:relative;border-radius:2px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.4)">
+        <img src="../brand_assets/D95A0238-Edit.jpg" alt="Baltijos Parkas namai" style="height:480px;object-position:center 25%" />
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(30,43,58,.4) 0%,transparent 60%)"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><img src="../brand_assets/baltijos parkas logo.png" alt="Baltijos Parkas" /><p>Pilnai įrengti individualūs namai Šventojoje. 700 m iki Baltijos jūros paplūdimio. Trumpalaikė ir ilgalaikė nuoma.</p></div>
+    <div class="fcol"><h4>Navigacija</h4><ul><li><a href="#apie">Apie mus</a></li><li><a href="#privalumai">Privalumai</a></li><li><a href="#galerija">Galerija</a></li><li><a href="#nuoma">Nuoma</a></li><li><a href="#pardavimas">Pardavimas</a></li><li><a href="#apziura">Apžiūra</a></li><li><a href="#vieta">Vieta</a></li><li><a href="#kontaktai">Kontaktai</a></li></ul></div>
+    <div class="fcol"><h4>Kontaktai</h4><ul><li><a href="tel:+37069165685">+370 691 65685</a></li><li><a href="mailto:labas@baltijosparkas.lt">labas@baltijosparkas.lt</a></li><li><a href="#">Mokyklos g. 45, Šventoji</a></li></ul></div>
+    <div class="fcol"><h4>Socialiniai tinklai</h4><ul><li><a href="https://www.instagram.com/baltijosparkas" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.facebook.com/profile.php?id=61576996551514" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://wa.me/37069165685" target="_blank" rel="noopener">WhatsApp</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Baltijos Parkas. Visos teisės saugomos.</span><span>Šventoji, Lietuva</span></div>
+</footer>
+
+<!-- Sticky CTA -->
+<div id="sticky-cta"><a href="https://ibe.sabeeapp.com/v3/p/Baltijos-parkas?p=76684af95e650161&lang=Lt" target="_blank" rel="noopener">Rezervuoti</a></div>
+
+<!-- WhatsApp -->
+<a id="wa-float" href="https://wa.me/37069165685" target="_blank" rel="noopener" title="WhatsApp">
+  <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// ── Booking widget dates auto-fill ──
+(function(){
+  const pad = n => String(n).padStart(2,'0');
+  const fmt = d => d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  const today = new Date(), tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate()+1);
+  const fi = document.getElementById('bw-from'), ti = document.getElementById('bw-to');
+  if(fi){ fi.value = fmt(today); fi.min = fmt(today); }
+  if(ti){ ti.value = fmt(tomorrow); ti.min = fmt(tomorrow); }
+  // keep departure after arrival
+  fi && fi.addEventListener('change', ()=>{ if(ti.value <= fi.value){ const d=new Date(fi.value); d.setDate(d.getDate()+1); ti.value=fmt(d); } ti.min=fi.value; });
+})();
+
+function goToBooking(){
+  const from=document.getElementById('bw-from').value;
+  const to=document.getElementById('bw-to').value;
+  const adults=document.getElementById('bw-adults').value;
+  const children=document.getElementById('bw-children').value;
+  let url='https://ibe.sabeeapp.com/v3/p/Baltijos-parkas?p=76684af95e650161&lang=Lt';
+  if(from) url+='&from='+from;
+  if(to) url+='&to='+to;
+  if(adults) url+='&adults='+adults;
+  if(children) url+='&children='+children;
+  window.open(url,'_blank');
+}
+
+// ── Scroll progress bar ──
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / h * 100)+'%';
+}, {passive:true});
+
+// ── Nav scroll + active section ──
+const nav = document.getElementById('nav');
+const sections = document.querySelectorAll('section[id], div[id="stats-band"]');
+const navLinks = document.querySelectorAll('#nav ul li a');
+window.addEventListener('scroll', ()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+  // active nav
+  let current = '';
+  sections.forEach(s=>{ if(window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a=>{ a.classList.toggle('active', a.getAttribute('href')==='#'+current); });
+  // sticky CTA
+  document.getElementById('sticky-cta').classList.toggle('show', window.scrollY > window.innerHeight * 0.8);
+}, {passive:true});
+
+// ── Hero parallax ──
+const heroImg = document.getElementById('hero-img');
+window.addEventListener('scroll', ()=>{
+  if(window.scrollY < window.innerHeight){
+    heroImg.style.transform = 'translateY('+(window.scrollY*0.35)+'px)';
+  }
+}, {passive:true});
+
+// ── Mobile menu ──
+document.getElementById('hamburger').addEventListener('click', ()=>document.getElementById('mobile-menu').classList.add('open'));
+document.getElementById('m-close').addEventListener('click', ()=>document.getElementById('mobile-menu').classList.remove('open'));
+document.querySelectorAll('.ml').forEach(l=>l.addEventListener('click',()=>document.getElementById('mobile-menu').classList.remove('open')));
+
+// ── Smooth scroll ──
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); window.scrollTo({top: t.offsetTop - nav.offsetHeight, behavior:'smooth'}); }
+  });
+});
+
+// ── Fade-up observer ──
+const fadeObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); fadeObs.unobserve(e.target); }});
+},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>fadeObs.observe(el));
+
+// ── Animated counters ──
+const counterObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el = e.target, target = +el.dataset.target, duration = 1400;
+    let start = null;
+    const step = ts=>{
+      if(!start) start=ts;
+      const p = Math.min((ts-start)/duration,1);
+      el.textContent = Math.floor(p*target);
+      if(p<1) requestAnimationFrame(step); else el.textContent = target;
+    };
+    requestAnimationFrame(step);
+    counterObs.unobserve(el);
+  });
+},{threshold:0.5});
+document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
+
+// ── Gallery filter + lightbox ──
+const filterBtns = document.querySelectorAll('.filter-btn');
+const galItems = document.querySelectorAll('.gal-item');
+filterBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    filterBtns.forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+    const f=btn.dataset.filter;
+    galItems.forEach(i=>{ i.style.display=(f==='all'||i.dataset.cat===f)?'':'none'; });
+  });
+});
+
+const lb=document.getElementById('lightbox'), lbImg=document.getElementById('lb-img'), lbCount=document.getElementById('lb-count');
+let ci=0, vi=[];
+function openLB(idx){ vi=Array.from(galItems).filter(i=>i.style.display!=='none'); ci=idx; showLB(); lb.classList.add('open'); document.body.style.overflow='hidden'; }
+function showLB(){ const img=vi[ci]?.querySelector('img'); if(!img) return; lbImg.src=img.src; lbImg.alt=img.alt; lbCount.textContent=(ci+1)+' / '+vi.length; }
+function closeLB(){ lb.classList.remove('open'); document.body.style.overflow=''; }
+galItems.forEach(item=>item.addEventListener('click',()=>{ vi=Array.from(galItems).filter(i=>i.style.display!=='none'); openLB(vi.indexOf(item)); }));
+document.getElementById('lb-close').addEventListener('click',closeLB);
+document.getElementById('lb-prev').addEventListener('click',()=>{ ci=(ci-1+vi.length)%vi.length; showLB(); });
+document.getElementById('lb-next').addEventListener('click',()=>{ ci=(ci+1)%vi.length; showLB(); });
+lb.addEventListener('click',e=>{ if(e.target===lb) closeLB(); });
+document.addEventListener('keydown',e=>{ if(!lb.classList.contains('open')) return; if(e.key==='Escape') closeLB(); if(e.key==='ArrowLeft'){ci=(ci-1+vi.length)%vi.length;showLB();} if(e.key==='ArrowRight'){ci=(ci+1)%vi.length;showLB();} });
+let tx=0;
+lb.addEventListener('touchstart',e=>{ tx=e.touches[0].clientX; },{passive:true});
+lb.addEventListener('touchend',e=>{ const d=tx-e.changedTouches[0].clientX; if(Math.abs(d)>50){ ci=d>0?(ci+1)%vi.length:(ci-1+vi.length)%vi.length; showLB(); } });
+
+// ── Forms ──
+function handleForm(formId, successId, to){
+  const f=document.getElementById(formId), s=document.getElementById(successId);
+  if(!f) return;
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const d=Object.fromEntries(new FormData(f));
+    if(!d.name && !document.getElementById(formId.replace('form','').replace('-','')+'name')?.value){
+      // basic check: just proceed
+    }
+    const lines=Object.entries(d).filter(([,v])=>v).map(([k,v])=>k+': '+v).join('\n');
+    window.location.href='mailto:'+to+'?subject='+encodeURIComponent('Užklausa – '+(d.name||''))+'&body='+encodeURIComponent(lines);
+    f.reset(); s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),6000);
+  });
+}
+handleForm('contact-form','form-success','labas@baltijosparkas.lt');
+handleForm('viewing-form','viewing-success','labas@baltijosparkas.lt');
+
+// ── Feature card tilt ──
+document.querySelectorAll('.feat-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+    const cx=r.width/2, cy=r.height/2;
+    card.style.transform='translateY(-4px)';
+    card.style.transition='transform .1s ease';
+  });
+  card.addEventListener('mouseleave',()=>{ card.style.transform=''; card.style.transition='transform .4s ease'; });
+});
+</script>
+
+<!-- ═══ AI CHAT WIDGET ═══ -->
+<style>
+  #bp-chat-widget{position:fixed;bottom:28px;right:96px;z-index:910}
+  #bp-chat-toggle{width:54px;height:54px;border-radius:50%;background:var(--navy);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(30,43,58,.5);transition:transform .22s,box-shadow .22s;animation:pulse 3s ease-in-out infinite}
+  #bp-chat-toggle:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(30,43,58,.65)}
+  #bp-chat-toggle svg{color:var(--accent)}
+  #bp-chat-box{position:absolute;bottom:66px;right:0;width:340px;background:#fff;border-radius:4px;box-shadow:0 8px 48px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow:hidden;transform:scale(.9) translateY(12px);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;transform-origin:bottom right;max-height:520px}
+  #bp-chat-box.open{transform:scale(1) translateY(0);opacity:1;pointer-events:auto}
+  .bpc-header{background:var(--navy);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+  .bpc-header-left{display:flex;align-items:center;gap:10px}
+  .bpc-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;color:#fff;font-weight:600;flex-shrink:0}
+  .bpc-name{font-size:.82rem;font-weight:600;color:#fff;letter-spacing:.03em}
+  .bpc-status{font-size:.67rem;color:rgba(255,255,255,.5);margin-top:1px;display:flex;align-items:center;gap:5px}
+  .bpc-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#4caf50;flex-shrink:0}
+  .bpc-close{background:none;border:none;color:rgba(255,255,255,.5);font-size:1.5rem;cursor:pointer;padding:0;line-height:1;transition:color .2s}
+  .bpc-close:hover{color:#fff}
+  #bp-chat-msgs{flex:1;height:300px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px;background:#f8f5f0}
+  #bp-chat-msgs::-webkit-scrollbar{width:4px}
+  #bp-chat-msgs::-webkit-scrollbar-thumb{background:#e0dbd3;border-radius:2px}
+  .bpc-msg{max-width:84%;padding:9px 13px;font-size:.83rem;line-height:1.6;border-radius:3px}
+  .bpc-msg.bot{background:#fff;color:#1a1a1a;align-self:flex-start;box-shadow:0 1px 4px rgba(0,0,0,.07);border:1px solid #e0dbd3}
+  .bpc-msg.user{background:var(--navy);color:#fff;align-self:flex-end}
+  .bpc-msg.typing{background:#fff;color:#6b6b6b;font-style:italic;border:1px solid #e0dbd3;align-self:flex-start}
+  .bpc-input-row{display:flex;border-top:1px solid #e0dbd3;background:#fff;flex-shrink:0}
+  #bp-chat-input{flex:1;border:none;outline:none;padding:12px 14px;font-family:'Inter',sans-serif;font-size:.85rem;color:#1a1a1a;background:transparent}
+  #bp-chat-input::placeholder{color:#6b6b6b}
+  #bp-chat-send{padding:10px 16px;background:var(--accent);border:none;cursor:pointer;color:#fff;transition:background .2s;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+  #bp-chat-send:hover{background:#b8944f}
+  #bp-chat-send:disabled{background:#ccc;cursor:not-allowed}
+  @media(max-width:480px){#bp-chat-widget{right:8px;bottom:130px}#bp-chat-box{width:calc(100vw - 16px);right:-8px}}
+</style>
+
+<div id="bp-chat-widget">
+  <div id="bp-chat-box">
+    <div class="bpc-header">
+      <div class="bpc-header-left">
+        <div class="bpc-avatar">BP</div>
+        <div>
+          <div class="bpc-name">Baltijos Parkas</div>
+          <div class="bpc-status">AI asistentas</div>
+        </div>
+      </div>
+      <button class="bpc-close" id="bp-chat-close">&times;</button>
+    </div>
+    <div id="bp-chat-msgs">
+      <div class="bpc-msg bot">Sveiki! Esu Baltijos Parko AI asistentas. Galiu atsakyti į klausimus apie nuomą, pardavimą, kainas ar vietą. Kuo galiu padėti?</div>
+    </div>
+    <div class="bpc-input-row">
+      <input type="text" id="bp-chat-input" placeholder="Rašykite klausimą..." autocomplete="off" />
+      <button id="bp-chat-send">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+      </button>
+    </div>
+  </div>
+  <button id="bp-chat-toggle" title="Kalbėkitės su AI asistentu">
+    <svg width="23" height="23" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+  </button>
+</div>
+
+<script>
+(function(){
+  const WORKER_URL = 'https://divine-smoke-0762.gomojotrader.workers.dev';
+  const history = [];
+  const toggle = document.getElementById('bp-chat-toggle');
+  const box = document.getElementById('bp-chat-box');
+  const closeBtn = document.getElementById('bp-chat-close');
+  const input = document.getElementById('bp-chat-input');
+  const sendBtn = document.getElementById('bp-chat-send');
+  const msgs = document.getElementById('bp-chat-msgs');
+
+  toggle.addEventListener('click', () => {
+    box.classList.toggle('open');
+    if (box.classList.contains('open')) input.focus();
+  });
+  closeBtn.addEventListener('click', () => box.classList.remove('open'));
+
+  function addMsg(text, role) {
+    const d = document.createElement('div');
+    d.className = 'bpc-msg ' + role;
+    d.textContent = text;
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+    return d;
+  }
+
+  async function sendMsg() {
+    const text = input.value.trim();
+    if (!text || sendBtn.disabled) return;
+    input.value = '';
+    addMsg(text, 'user');
+    history.push({ role: 'user', content: text });
+    const typing = addMsg('Rašoma...', 'typing');
+    sendBtn.disabled = true;
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history })
+      });
+      const data = await res.json();
+      const reply = data.reply || 'Atsiprašome, įvyko klaida. Bandykite dar kartą.';
+      typing.remove();
+      addMsg(reply, 'bot');
+      history.push({ role: 'assistant', content: reply });
+    } catch {
+      typing.remove();
+      addMsg('Ryšio klaida. Bandykite dar kartą arba skambinkite: +370 691 65685', 'bot');
+    }
+    sendBtn.disabled = false;
+    input.focus();
+  }
+
+  sendBtn.addEventListener('click', sendMsg);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); } });
+})();
+</script>
+</body>
+</html>
