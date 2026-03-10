@@ -63,7 +63,7 @@ Pašaliniai asmenys į teritoriją neįleidžiami be administracijos sutikimo.
 
 Kai klientas nori rezervuoti trumpalaikę nuomą, nukreipk į rezervacijų sistemą ir pateik nuorodą.
 Kai klientas domisi pirkimu ar ilgalaike/vidutinės trukmės nuoma, rekomenduok skambinti +370 691 65685 arba rašyti labas@baltijosparkas.lt.
-Atsakyk glaustai — 2–4 sakiniai, nebent klientas prašo detalesnės informacijos. Kai nukreipi į administraciją, pateik tik kontaktus — nededk papildomų sakinių apie tai, ką administracija padarys ar kaip padės. Baik atsakymą ties kontaktais.`;
+Atsakyk glaustai — 2–4 sakiniai, nebent klientas prašo detalesnės informacijos. Kai nukreipi į administraciją, pateik tik kontaktus ir NIEKO daugiau — jokių sakinių po kontaktų. Paskutinis žodis atsakyme turi būti kontaktas (telefono numeris arba el. paštas). Draudžiama rašyti ką administracija padarys, suderinys, padės ar pan.`;
 
 export default {
   async fetch(request, env) {
