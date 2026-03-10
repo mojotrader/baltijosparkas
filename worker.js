@@ -9,7 +9,7 @@ Visada kreipkis į svečią mandagiai — vartok „Jūs" formą: „skambinkite
 
 APIE BALTIJOS PARKĄ:
 Baltijos Parkas — individualių namų kvartalas Šventojoje, Lietuva.
-Adresas: Mokyklos g. 45, 00303 Šventoji
+Adresas: Mokyklos g. 45, 00303 Palanga (Šventoji)
 Telefonas: +370 691 65685
 El. paštas: labas@baltijosparkas.lt
 
