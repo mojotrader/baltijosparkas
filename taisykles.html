@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baltijos Parkas — Taisyklės</title>
+  <meta name="description" content="Baltijos Parkas nuomos taisyklės ir sąlygos. Registracijos laikas, atšaukimo politika, elgesio taisyklės." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --dark:#1a1a1a;--navy:#1e2b3a;--mid:#6b6b6b;
+      --light:#f8f5f0;--white:#fff;--accent:#c9a96e;--border:#e0dbd3;
+      --nav-h:76px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+    a{color:inherit;text-decoration:none}
+    button{cursor:pointer;border:none;background:none;font-family:inherit}
+    ul{list-style:none}
+    h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:400;line-height:1.15}
+    h1{font-size:clamp(2.4rem,5.5vw,4.6rem)}
+    h2{font-size:clamp(1.9rem,3.8vw,3rem)}
+    h3{font-size:clamp(1.2rem,2.2vw,1.6rem)}
+    p{font-size:clamp(.93rem,1.4vw,1.03rem);line-height:1.75;color:var(--mid)}
+    .container{max-width:800px;margin:0 auto;padding:0 2rem}
+
+    /* ── PROGRESS ── */
+    #progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:9999;width:0%;transition:width .1s linear}
+
+    /* ── NAV ── */
+    #nav{position:fixed;top:3px;left:0;right:0;z-index:1000;height:var(--nav-h);transition:background .4s,box-shadow .4s;display:flex;align-items:center}
+    #nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 1px 0 var(--border)}
+    #nav .nav-inner{width:100%;max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
+    #nav .nav-logo img{height:46px;width:auto;filter:brightness(0) invert(1);transition:filter .4s}
+    #nav.scrolled .nav-logo img{filter:brightness(0)}
+    #nav ul{display:flex;gap:2rem;align-items:center}
+    #nav ul li a{font-size:.76rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.88);transition:color .25s;position:relative;padding-bottom:2px}
+    #nav ul li a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--accent);transition:width .3s}
+    #nav ul li a:hover::after{width:100%}
+    #nav ul li a:hover{color:var(--accent)}
+    #nav.scrolled ul li a{color:var(--dark)}
+    #nav.scrolled ul li a:hover{color:var(--accent)}
+    #nav .nav-cta{padding:9px 22px;border:1px solid rgba(255,255,255,.55);border-radius:2px;font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#fff;transition:all .3s;white-space:nowrap}
+    #nav.scrolled .nav-cta{border-color:var(--dark);color:var(--dark)}
+    #nav .nav-cta:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+    #nav .hamburger{display:none;flex-direction:column;gap:5px;padding:4px}
+    #nav .hamburger span{display:block;width:24px;height:2px;background:#fff;transition:background .3s}
+    #nav.scrolled .hamburger span{background:var(--dark)}
+
+    /* ── HERO ── */
+    #hero{height:38vh;min-height:260px;background:var(--navy);display:flex;align-items:flex-end;padding-bottom:52px}
+    .hero-content{padding-top:var(--nav-h)}
+    .hero-eyebrow{font-size:.68rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.8rem;display:block}
+    #hero h1{color:#fff;font-weight:300}
+    #hero h1 em{font-style:italic;color:var(--accent)}
+
+    /* ── CONTENT ── */
+    .taisykles-section{padding:80px 0 100px}
+    .taisykles-block{margin-bottom:2.8rem}
+    .taisykles-block h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:500;color:var(--dark);margin-bottom:.9rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+    .taisykles-block p{margin-bottom:.8rem}
+    .taisykles-block p:last-child{margin-bottom:0}
+    .taisykles-block strong{color:var(--dark);font-weight:600}
+    .highlight-box{background:var(--light);border-left:3px solid var(--accent);padding:1.2rem 1.5rem;border-radius:0 2px 2px 0;margin-bottom:.8rem}
+    .highlight-box p{margin:0}
+    .divider{width:44px;height:2px;background:var(--accent);margin:0 0 2.8rem}
+
+    /* ── FOOTER ── */
+    footer{background:#111;color:rgba(255,255,255,.45);padding:52px 0 32px}
+    .footer-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px}
+    .footer-brand img{height:48px;width:auto;filter:brightness(0) invert(1);opacity:.75;margin-bottom:1.1rem}
+    .footer-brand p{font-size:.83rem;line-height:1.7}
+    .fcol h4{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;color:rgba(255,255,255,.7);margin-bottom:1rem;letter-spacing:.05em}
+    .fcol ul li{margin-bottom:.55rem;font-size:.82rem}
+    .fcol ul li a:hover{color:var(--accent)}
+    .footer-bottom{max-width:1200px;margin:36px auto 0;padding:22px 2rem 0;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;font-size:.76rem}
+
+    @media(max-width:768px){
+      .footer-inner{grid-template-columns:1fr 1fr;gap:32px}
+      #nav ul,#nav .nav-cta{display:none}
+      #nav .hamburger{display:flex}
+    }
+    @media(max-width:480px){
+      .footer-inner{grid-template-columns:1fr}
+      .footer-bottom{flex-direction:column;gap:7px;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="brand_assets/baltijos parkas logo.png" alt="Baltijos Parkas" /></a>
+    <ul>
+      <li><a href="index.html#apie">Apie mus</a></li>
+      <li><a href="index.html#privalumai">Privalumai</a></li>
+      <li><a href="index.html#galerija">Galerija</a></li>
+      <li><a href="index.html#nuoma">Nuoma</a></li>
+      <li><a href="index.html#pardavimas">Pardavimas</a></li>
+      <li><a href="index.html#apziura">Apžiūra</a></li>
+      <li><a href="index.html#vieta">Vieta</a></li>
+    </ul>
+    <a href="index.html#kontaktai" class="nav-cta">Susisiekti</a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="container hero-content">
+    <span class="hero-eyebrow">Baltijos Parkas</span>
+    <h1>Nuomos <em>taisyklės</em></h1>
+  </div>
+</section>
+
+<section class="taisykles-section">
+  <div class="container">
+    <div class="divider"></div>
+
+    <div class="taisykles-block">
+      <div class="highlight-box">
+        <p><strong>Registracijos laikas nuo 15:00</strong></p>
+      </div>
+      <div class="highlight-box">
+        <p><strong>Išvykimo laikas iki 11:00 val.</strong></p>
+      </div>
+    </div>
+
+    <div class="taisykles-block">
+      <h3>Rezervacija ir apmokėjimas</h3>
+      <p>Nuomininkas privalo teisingai nurodyti duomenis rezervacijos. Nuomotojas neatsako už neteisingai pasirinktą atvykimo arba išvykimo terminą ar už kitus klaidingai nurodytus duomenis.</p>
+      <p>Užpildęs ir išsiuntęs rezervaciją, nuomininkas gauna rezervacijos patvirtinimą, kurioje nurodoma atvykimo / išvykimo laikas, asmenų skaičius, kaina bei kita svarbi informacija.</p>
+      <p>Užsakymas yra patvirtinamas tik tuo atveju, kai avansinio mokėjimo pinigai patenka į nurodytą banko sąskaitą, kitu atveju administracija pasilieka teisę anuliuoti užsakymą.</p>
+      <p>Nuomininkui likusią rezervacijos sumos dalį <strong>pilnai apmoka atvykimo dieną, registracijos metu.</strong></p>
+      <p>Už teikiamas paslaugas gali būti atsiskaitoma grynaisiais pinigais (Eurais) arba mokėjimo kortele, išankstiniu banko pavedimu.</p>
+    </div>
+
+    <div class="taisykles-block">
+      <h3>Atšaukimo politika</h3>
+      <p>Atšaukti užsakymą galima nemokamai likus 14 kalendorinių dienų iki atvykimo datos (avanso suma grąžinama).</p>
+      <p>Likus 10–13 kalendorinių dienų iki atvykimo datos — grąžinama 80% užsakymo sumos.</p>
+      <p>Likus 7–9 kalendorinėm dienom iki atvykimo datos — grąžinama 40% užsakymo sumos.</p>
+      <p>Likus 6 kalendorinėm dienom ir mažiau — užsakymo suma negrąžinama.</p>
+      <p>Nuomininkui neatvykus numatytą dieną <strong>iki 24 val., imamas avansinio dydžio anuliacijos mokestis.</strong></p>
+      <p>Nuomininkui atvykus ir trumpinant rezervaciją registracijos metu nuomotojui yra kompensuojami atsiradę nuostoliai. <strong>Taikomas 100% vienos nakties kainos dydžio mokestis.</strong></p>
+      <p>Nuomotojas turi teisę anuliuoti rezervaciją, jeigu negautas avansinis mokėjimas be jokio paaiškinimo bei nepavyksta susisiekti telefonu arba elektroniniu paštu.</p>
+    </div>
+
+    <div class="taisykles-block">
+      <h3>Elgesys ir ramybės valandos</h3>
+      <p>Apartamentuose ir poilsio teritorijoje <strong>nuo 22:00 iki 9:00 val. draudžiama triukšmauti.</strong></p>
+      <p>Administracija pasilieka teisę šalinti asmenis, kurių elgesys neatitinka bendro gyvenimo normų.</p>
+    </div>
+
+    <div class="taisykles-block">
+      <h3>Rūkymas ir priešgaisrinė sauga</h3>
+      <p><strong>Rūkyti, naudotis žvakėmis ir kita atvira ugnimi patalpose griežtai draudžiama.</strong> Rūkyti leidžiama atvirose terasose ir balkonuose.</p>
+      <p><strong>Už šių taisyklių pažeidimą bus taikoma 50 Eur bauda.</strong></p>
+    </div>
+
+    <div class="taisykles-block">
+      <h3>Turto priežiūra</h3>
+      <p>Nuomininkas <strong>įsipareigoja saugoti ir tausoti nuomotojo turtą.</strong> Apie pastebėtus gedimus ar žalą būtina nedelsiant pranešti administracijai.</p>
+      <p>Nuomininkas atsako už žalą, padarytą dėl jo neatsargumo. Draudžiama išnešti iš patalpų nuomotojo turtą.</p>
+    </div>
+
+    <div class="taisykles-block">
+      <h3>Naminiai gyvūnėliai</h3>
+      <p>Dėl kitų poilsiautojų saugumo, <strong>nuomininkai su naminiais gyvūnėliais yra neapgyvendinami.</strong></p>
+    </div>
+
+    <div class="taisykles-block">
+      <h3>Papildomos sąlygos</h3>
+      <p>Svečiai be išankstinio susitarimo su administracija nėra leidžiami į teritoriją.</p>
+      <p>Nuomininkai patys atsako už savo saugumą ir vaikų priežiūrą. Nuomotojas neatsako už trečiųjų asmenų padarytą žalą.</p>
+    </div>
+
+    <div class="highlight-box">
+      <p>Nuomininkas pateikęs rezervaciją <strong>sutinka su nurodytomis taisyklėmis ir sąlygomis.</strong></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><img src="brand_assets/baltijos parkas logo.png" alt="Baltijos Parkas" /><p>Individualių namų kvartalas Šventojoje. Pirkimas ir nuoma. Mokyklos g. 45, 00303 Šventoji.</p></div>
+    <div class="fcol"><h4>Puslapiai</h4><ul><li><a href="index.html">Nuoma</a></li><li><a href="pardavimai.html">Pardavimas</a></li><li><a href="taisykles.html">Taisyklės</a></li><li><a href="index.html#kontaktai">Kontaktai</a></li></ul></div>
+    <div class="fcol"><h4>Kontaktai</h4><ul><li><a href="tel:+37069165685">+370 691 65685</a></li><li><a href="mailto:labas@baltijosparkas.lt">labas@baltijosparkas.lt</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>&copy; 2026 Baltijos Parkas. Visos teisės saugomos.</span><span>Šventoji, Lietuva</span></div>
+</footer>
+
+<script>
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / h * 100)+'%';
+}, {passive:true});
+
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', ()=>{
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, {passive:true});
+
+// Hamburger menu (mobile)
+const hamburger = document.getElementById('hamburger');
+hamburger.addEventListener('click', ()=>{
+  const ul = nav.querySelector('ul');
+  const isOpen = ul.style.display === 'flex';
+  ul.style.display = isOpen ? '' : 'flex';
+  ul.style.flexDirection = 'column';
+  ul.style.position = 'absolute';
+  ul.style.top = '76px';
+  ul.style.left = '0';
+  ul.style.right = '0';
+  ul.style.background = '#fff';
+  ul.style.padding = '1rem 2rem';
+  ul.style.gap = '1.2rem';
+});
+</script>
+</body>
+</html>
