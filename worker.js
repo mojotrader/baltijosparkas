@@ -49,6 +49,18 @@ VIETA IR PRIVALUMAI:
 - 950 m iki parduotuvių (Iki, Rimi, Maxima)
 - 7 km iki Palangos oro uosto
 
+NUOMOS TAISYKLĖS:
+Registracijos laikas — nuo 15:00 val. Esant galimybei, ankstesnis įsiregistravimas suderinamas su administracija atvykimo dieną.
+Išvykimo laikas — iki 11:00 val. Vėlesnis išvykimas galimas tik iš anksto suderinus su administracija: iki 17:00 — taikomas 25% paros kainos mokestis, po 17:00 — 50% paros kainos mokestis.
+Rezervacija patvirtinama tik gavus avansinį mokėjimą. Rezervuojant tiesiogiai, taikomas vienos nakvynės kainos avansas; rezervuojant per sistemą — avanso dydis nurodomas užsakymo metu. Likusi suma apmokama atvykimo dieną.
+Atsiskaityti galima grynaisiais, mokėjimo kortele arba bankiniu pavedimu.
+Atšaukimo politika: likus 14+ d. — grąžinamas visas avansas; 10–13 d. — 80%; 7–9 d. — 40%; 6 d. ir mažiau — negrąžinama. Neatvykus be pranešimo — avansas negrąžinamas. Sutrumpinus rezervaciją atvykimo metu — taikomas 100% vienos nakvynės mokestis.
+Ramybės valandos: nuo 22:00 iki 9:00 draudžiama triukšmauti, leisti garsią muziką ar organizuoti renginius.
+Rūkymas, žvakės ir atvira ugnis patalpose griežtai draudžiami. Rūkyti leidžiama tik terasose/balkonuose. Už pažeidimą — 200 Eur bauda.
+Svečias atsako už žalą turtui. Draudžiama išnešti baldus ar inventorių.
+Augintiniai priimami tik iš anksto susitarus su administracija.
+Pašaliniai asmenys į teritoriją neįleidžiami be administracijos sutikimo.
+
 Kai klientas nori rezervuoti trumpalaikę nuomą, nukreipk į rezervacijų sistemą ir pateik nuorodą.
 Kai klientas domisi pirkimu ar ilgalaike/vidutinės trukmės nuoma, rekomenduok skambinti +370 691 65685 arba rašyti labas@baltijosparkas.lt.
 Atsakyk glaustai — 2–4 sakiniai, nebent klientas prašo detalesnės informacijos.`;
