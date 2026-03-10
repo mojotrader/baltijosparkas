@@ -44,7 +44,6 @@ VIETA IR PRIVALUMAI:
 - 700 m iki Baltijos jūros paplūdimio
 - 500 m iki Ošupio dviračių tako (Palangos link)
 - Uždara, saugi teritorija su želdynais
-- Vaikų žaidimų aikštelė, krepšinio ir teniso kortas
 - Viessmann katilas, oro kondicionierius, Electrolux technika, premium baldai
 - 4 parkavimo vietos prie kiekvieno namo
 - 950 m iki parduotuvių (Iki, Rimi, Maxima)
