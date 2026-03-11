@@ -871,8 +871,14 @@ function handleForm(formId, successId){
   if(!f) return;
   f.addEventListener('submit',async e=>{
     e.preventDefault();
-    const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}});
-    if(res.ok){ f.reset(); s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),6000); }
+    const btn=f.querySelector('[type=submit]');
+    btn.disabled=true;
+    try{
+      const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}});
+      if(res.ok){ f.reset(); s.textContent=s.textContent; s.style.background=''; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),6000); }
+      else{ s.textContent='Klaida. Bandykite dar kartą arba rašykite: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }
+    }catch(err){ s.textContent='Nepavyko išsiųsti. Patikrinkite ryšį arba rašykite: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }
+    finally{ btn.disabled=false; }
   });
 }
 handleForm('contact-form','form-success');

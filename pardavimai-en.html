@@ -626,8 +626,14 @@ lb.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Mat
 const sf=document.getElementById('sale-form'),ss=document.getElementById('sale-success');
 sf.addEventListener('submit',async e=>{
   e.preventDefault();
-  const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:new FormData(sf),headers:{Accept:'application/json'}});
-  if(res.ok){ sf.reset(); ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),6000); }
+  const btn=sf.querySelector('[type=submit]');
+  btn.disabled=true;
+  try{
+    const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:new FormData(sf),headers:{Accept:'application/json'}});
+    if(res.ok){ sf.reset(); ss.style.background=''; ss.textContent=ss.textContent; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),6000); }
+    else{ ss.textContent='Error. Please try again or email: labas@baltijosparkas.lt'; ss.style.background='rgba(200,0,0,.1)'; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),8000); }
+  }catch(err){ ss.textContent='Could not send. Check your connection or email: labas@baltijosparkas.lt'; ss.style.background='rgba(200,0,0,.1)'; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),8000); }
+  finally{ btn.disabled=false; }
 });
 </script>
 
