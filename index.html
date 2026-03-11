@@ -585,7 +585,7 @@
             </div>
             <div class="frow">
               <div class="fg"><label for="v-date">Pageidaujama data</label><input type="date" id="v-date" name="Pageidaujama data" /></div>
-              <div class="fg"><label for="v-time">Pageidaujamas laikas</label><input type="time" id="v-time" name="Pageidaujamas laikas" /></div>
+              <div class="fg"><label for="v-time">Pageidaujamas laikas</label><input type="time" id="v-time" name="Pageidaujamas laikas" lang="lt" value="12:00" /></div>
             </div>
             <div class="fg"><label for="v-msg">Papildoma informacija</label><textarea id="v-msg" name="message" placeholder="Klausimai, pageidavimai..."></textarea></div>
             <button type="submit" class="submit-btn">Registruotis apžiūrai</button>
@@ -874,7 +874,8 @@ function handleForm(formId, successId){
     const btn=f.querySelector('[type=submit]');
     btn.disabled=true;
     try{
-      const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(Object.fromEntries(new FormData(f))),headers:{Accept:'application/json','Content-Type':'application/json'}});
+      const data=Object.fromEntries(Object.entries(Object.fromEntries(new FormData(f))).filter(([,v])=>String(v).trim()));
+      const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(data),headers:{Accept:'application/json','Content-Type':'application/json'}});
       if(res.ok){ f.reset(); s.textContent=s.textContent; s.style.background=''; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),6000); }
       else{ s.textContent='Klaida. Bandykite dar kartą arba rašykite: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }
     }catch(err){ s.textContent='Nepavyko išsiųsti. Patikrinkite ryšį arba rašykite: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }

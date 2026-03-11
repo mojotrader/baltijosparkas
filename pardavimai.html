@@ -629,7 +629,8 @@ sf.addEventListener('submit',async e=>{
   const btn=sf.querySelector('[type=submit]');
   btn.disabled=true;
   try{
-    const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(Object.fromEntries(new FormData(sf))),headers:{Accept:'application/json','Content-Type':'application/json'}});
+    const data=Object.fromEntries(Object.entries(Object.fromEntries(new FormData(sf))).filter(([,v])=>String(v).trim()));
+    const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(data),headers:{Accept:'application/json','Content-Type':'application/json'}});
     if(res.ok){ sf.reset(); ss.style.background=''; ss.textContent=ss.textContent; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),6000); }
     else{ ss.textContent='Klaida. Bandykite dar kartą arba rašykite: labas@baltijosparkas.lt'; ss.style.background='rgba(200,0,0,.1)'; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),8000); }
   }catch(err){ ss.textContent='Nepavyko išsiųsti. Patikrinkite ryšį arba rašykite: labas@baltijosparkas.lt'; ss.style.background='rgba(200,0,0,.1)'; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),8000); }

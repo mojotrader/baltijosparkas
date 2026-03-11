@@ -874,7 +874,8 @@ function handleForm(formId, successId){
     const btn=f.querySelector('[type=submit]');
     btn.disabled=true;
     try{
-      const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(Object.fromEntries(new FormData(f))),headers:{Accept:'application/json','Content-Type':'application/json'}});
+      const data=Object.fromEntries(Object.entries(Object.fromEntries(new FormData(f))).filter(([,v])=>String(v).trim()));
+      const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(data),headers:{Accept:'application/json','Content-Type':'application/json'}});
       if(res.ok){ f.reset(); s.textContent=s.textContent; s.style.background=''; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),6000); }
       else{ s.textContent='Error. Please try again or email: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }
     }catch(err){ s.textContent='Could not send. Check your connection or email: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }
