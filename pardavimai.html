@@ -543,7 +543,7 @@
           <div class="fg"><label for="s-email">El. paštas</label><input type="email" id="s-email" name="email" placeholder="jusu@email.lt" /></div>
           <div class="fg">
             <label for="s-type">Domina paketas</label>
-            <select id="s-type" name="package"><option value="">Pasirinkite...</option><option value="dalinis">Su daline apdaila (229 000 €)</option><option value="pilnas">Su pilna apdaila (349 000 €)</option><option value="kita">Noriu sužinoti daugiau</option></select>
+            <select id="s-type" name="Domina paketas"><option value="">Pasirinkite...</option><option value="Su daline apdaila (229 000 €)">Su daline apdaila (229 000 €)</option><option value="Su pilna apdaila (349 000 €)">Su pilna apdaila (349 000 €)</option><option value="Noriu sužinoti daugiau">Noriu sužinoti daugiau</option></select>
           </div>
           <div class="fg"><label for="s-msg">Klausimas ar komentaras</label><textarea id="s-msg" name="message" placeholder="Jūsų klausimai, pageidavimai..."></textarea></div>
           <button type="submit" class="submit-btn">Siųsti užklausą</button>
@@ -629,7 +629,7 @@ sf.addEventListener('submit',async e=>{
   const btn=sf.querySelector('[type=submit]');
   btn.disabled=true;
   try{
-    const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:new FormData(sf),headers:{Accept:'application/json'}});
+    const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(Object.fromEntries(new FormData(sf))),headers:{Accept:'application/json','Content-Type':'application/json'}});
     if(res.ok){ sf.reset(); ss.style.background=''; ss.textContent=ss.textContent; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),6000); }
     else{ ss.textContent='Klaida. Bandykite dar kartą arba rašykite: labas@baltijosparkas.lt'; ss.style.background='rgba(200,0,0,.1)'; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),8000); }
   }catch(err){ ss.textContent='Nepavyko išsiųsti. Patikrinkite ryšį arba rašykite: labas@baltijosparkas.lt'; ss.style.background='rgba(200,0,0,.1)'; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),8000); }

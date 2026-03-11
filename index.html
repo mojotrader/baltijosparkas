@@ -581,11 +581,11 @@
             <div class="fg"><label for="v-email">El. paštas</label><input type="email" id="v-email" name="email" placeholder="jusu@email.lt" /></div>
             <div class="fg">
               <label for="v-type">Nuomos tipas *</label>
-              <select id="v-type" name="rental_type" required><option value="">Pasirinkite...</option><option value="vidutines">Vidutinės trukmės (1–12 mėn.)</option><option value="ilgalaike">Ilgalaikė (12+ mėn.)</option></select>
+              <select id="v-type" name="Nuomos tipas" required><option value="">Pasirinkite...</option><option value="Vidutinės trukmės (1–12 mėn.)">Vidutinės trukmės (1–12 mėn.)</option><option value="Ilgalaikė (12+ mėn.)">Ilgalaikė (12+ mėn.)</option></select>
             </div>
             <div class="frow">
-              <div class="fg"><label for="v-date">Pageidaujama data</label><input type="date" id="v-date" name="date" /></div>
-              <div class="fg"><label for="v-time">Pageidaujamas laikas</label><input type="time" id="v-time" name="time" /></div>
+              <div class="fg"><label for="v-date">Pageidaujama data</label><input type="date" id="v-date" name="Pageidaujama data" /></div>
+              <div class="fg"><label for="v-time">Pageidaujamas laikas</label><input type="time" id="v-time" name="Pageidaujamas laikas" /></div>
             </div>
             <div class="fg"><label for="v-msg">Papildoma informacija</label><textarea id="v-msg" name="message" placeholder="Klausimai, pageidavimai..."></textarea></div>
             <button type="submit" class="submit-btn">Registruotis apžiūrai</button>
@@ -682,11 +682,11 @@
           <div class="fg"><label for="c-email">El. paštas *</label><input type="email" id="c-email" name="email" placeholder="jusu@email.lt" required /></div>
           <div class="fg">
             <label for="c-type">Nuomos tipas</label>
-            <select id="c-type" name="rental_type"><option value="">Pasirinkite...</option><option value="short">Trumpalaikė nuoma</option><option value="mid">Vidutinės trukmės nuoma</option><option value="long">Ilgalaikė nuoma</option><option value="other">Kita</option></select>
+            <select id="c-type" name="Nuomos tipas"><option value="">Pasirinkite...</option><option value="Trumpalaikė nuoma">Trumpalaikė nuoma</option><option value="Vidutinės trukmės nuoma">Vidutinės trukmės nuoma</option><option value="Ilgalaikė nuoma">Ilgalaikė nuoma</option><option value="Kita">Kita</option></select>
           </div>
           <div class="frow">
-            <div class="fg"><label for="c-from">Atvykimas</label><input type="date" id="c-from" name="checkin" /></div>
-            <div class="fg"><label for="c-to">Išvykimas</label><input type="date" id="c-to" name="checkout" /></div>
+            <div class="fg"><label for="c-from">Atvykimas</label><input type="date" id="c-from" name="Atvykimas" /></div>
+            <div class="fg"><label for="c-to">Išvykimas</label><input type="date" id="c-to" name="Išvykimas" /></div>
           </div>
           <div class="fg"><label for="c-msg">Žinutė</label><textarea id="c-msg" name="message" placeholder="Papildoma informacija, klausimai..."></textarea></div>
           <button type="submit" class="submit-btn submit-btn-dark">Siųsti užklausą</button>
@@ -874,7 +874,7 @@ function handleForm(formId, successId){
     const btn=f.querySelector('[type=submit]');
     btn.disabled=true;
     try{
-      const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}});
+      const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(Object.fromEntries(new FormData(f))),headers:{Accept:'application/json','Content-Type':'application/json'}});
       if(res.ok){ f.reset(); s.textContent=s.textContent; s.style.background=''; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),6000); }
       else{ s.textContent='Klaida. Bandykite dar kartą arba rašykite: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }
     }catch(err){ s.textContent='Nepavyko išsiųsti. Patikrinkite ryšį arba rašykite: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }

@@ -581,11 +581,11 @@
             <div class="fg"><label for="v-email">Email</label><input type="email" id="v-email" name="email" placeholder="your@email.com" /></div>
             <div class="fg">
               <label for="v-type">Rental type *</label>
-              <select id="v-type" name="rental_type" required><option value="">Select...</option><option value="vidutines">Medium-term (1–12 months)</option><option value="ilgalaike">Long-term (12+ months)</option></select>
+              <select id="v-type" name="Rental type" required><option value="">Select...</option><option value="Medium-term (1–12 months)">Medium-term (1–12 months)</option><option value="Long-term (12+ months)">Long-term (12+ months)</option></select>
             </div>
             <div class="frow">
-              <div class="fg"><label for="v-date">Preferred date</label><input type="date" id="v-date" name="date" /></div>
-              <div class="fg"><label for="v-time">Preferred time</label><input type="time" id="v-time" name="time" /></div>
+              <div class="fg"><label for="v-date">Preferred date</label><input type="date" id="v-date" name="Preferred date" /></div>
+              <div class="fg"><label for="v-time">Preferred time</label><input type="time" id="v-time" name="Preferred time" /></div>
             </div>
             <div class="fg"><label for="v-msg">Additional information</label><textarea id="v-msg" name="message" placeholder="Questions, requests..."></textarea></div>
             <button type="submit" class="submit-btn">Register for viewing</button>
@@ -682,11 +682,11 @@
           <div class="fg"><label for="c-email">Email *</label><input type="email" id="c-email" name="email" placeholder="your@email.com" required /></div>
           <div class="fg">
             <label for="c-type">Rental type</label>
-            <select id="c-type" name="rental_type"><option value="">Select...</option><option value="short">Short-term rental</option><option value="mid">Medium-term rental</option><option value="long">Long-term rental</option><option value="other">Other</option></select>
+            <select id="c-type" name="Rental type"><option value="">Select...</option><option value="Short-term rental">Short-term rental</option><option value="Medium-term rental">Medium-term rental</option><option value="Long-term rental">Long-term rental</option><option value="Other">Other</option></select>
           </div>
           <div class="frow">
-            <div class="fg"><label for="c-from">Arrival</label><input type="date" id="c-from" name="checkin" /></div>
-            <div class="fg"><label for="c-to">Departure</label><input type="date" id="c-to" name="checkout" /></div>
+            <div class="fg"><label for="c-from">Arrival</label><input type="date" id="c-from" name="Arrival" /></div>
+            <div class="fg"><label for="c-to">Departure</label><input type="date" id="c-to" name="Departure" /></div>
           </div>
           <div class="fg"><label for="c-msg">Message</label><textarea id="c-msg" name="message" placeholder="Additional information, questions..."></textarea></div>
           <button type="submit" class="submit-btn submit-btn-dark">Send enquiry</button>
@@ -874,7 +874,7 @@ function handleForm(formId, successId){
     const btn=f.querySelector('[type=submit]');
     btn.disabled=true;
     try{
-      const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}});
+      const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(Object.fromEntries(new FormData(f))),headers:{Accept:'application/json','Content-Type':'application/json'}});
       if(res.ok){ f.reset(); s.textContent=s.textContent; s.style.background=''; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),6000); }
       else{ s.textContent='Error. Please try again or email: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }
     }catch(err){ s.textContent='Could not send. Check your connection or email: labas@baltijosparkas.lt'; s.style.background='rgba(200,0,0,.1)'; s.classList.add('show'); setTimeout(()=>s.classList.remove('show'),8000); }

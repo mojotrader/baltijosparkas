@@ -543,7 +543,7 @@
           <div class="fg"><label for="s-email">Email</label><input type="email" id="s-email" name="email" placeholder="your@email.com" /></div>
           <div class="fg">
             <label for="s-type">Package of interest</label>
-            <select id="s-type" name="package"><option value="">Select...</option><option value="dalinis">With partial finish (229,000 €)</option><option value="pilnas">With full finish (349,000 €)</option><option value="kita">I would like to find out more</option></select>
+            <select id="s-type" name="Package of interest"><option value="">Select...</option><option value="With partial finish (229,000 €)">With partial finish (229,000 €)</option><option value="With full finish (349,000 €)">With full finish (349,000 €)</option><option value="I would like to find out more">I would like to find out more</option></select>
           </div>
           <div class="fg"><label for="s-msg">Question or comment</label><textarea id="s-msg" name="message" placeholder="Your questions, requests..."></textarea></div>
           <button type="submit" class="submit-btn">Send enquiry</button>
@@ -629,7 +629,7 @@ sf.addEventListener('submit',async e=>{
   const btn=sf.querySelector('[type=submit]');
   btn.disabled=true;
   try{
-    const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:new FormData(sf),headers:{Accept:'application/json'}});
+    const res=await fetch('https://formspree.io/f/xnjgdqnz',{method:'POST',body:JSON.stringify(Object.fromEntries(new FormData(sf))),headers:{Accept:'application/json','Content-Type':'application/json'}});
     if(res.ok){ sf.reset(); ss.style.background=''; ss.textContent=ss.textContent; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),6000); }
     else{ ss.textContent='Error. Please try again or email: labas@baltijosparkas.lt'; ss.style.background='rgba(200,0,0,.1)'; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),8000); }
   }catch(err){ ss.textContent='Could not send. Check your connection or email: labas@baltijosparkas.lt'; ss.style.background='rgba(200,0,0,.1)'; ss.classList.add('show'); setTimeout(()=>ss.classList.remove('show'),8000); }
