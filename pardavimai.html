@@ -537,15 +537,15 @@
       <div class="fade-up d1">
         <form class="cform2" id="sale-form" novalidate>
           <div class="frow">
-            <div class="fg"><label for="s-name">Vardas *</label><input type="text" id="s-name" placeholder="Jūsų vardas" required /></div>
-            <div class="fg"><label for="s-phone">Telefonas *</label><input type="tel" id="s-phone" placeholder="+370 ..." required /></div>
+            <div class="fg"><label for="s-name">Vardas *</label><input type="text" id="s-name" name="name" placeholder="Jūsų vardas" required /></div>
+            <div class="fg"><label for="s-phone">Telefonas *</label><input type="tel" id="s-phone" name="phone" placeholder="+370 ..." required /></div>
           </div>
-          <div class="fg"><label for="s-email">El. paštas</label><input type="email" id="s-email" placeholder="jusu@email.lt" /></div>
+          <div class="fg"><label for="s-email">El. paštas</label><input type="email" id="s-email" name="email" placeholder="jusu@email.lt" /></div>
           <div class="fg">
             <label for="s-type">Domina paketas</label>
-            <select id="s-type"><option value="">Pasirinkite...</option><option value="dalinis">Su daline apdaila (229 000 €)</option><option value="pilnas">Su pilna apdaila (349 000 €)</option><option value="kita">Noriu sužinoti daugiau</option></select>
+            <select id="s-type" name="package"><option value="">Pasirinkite...</option><option value="dalinis">Su daline apdaila (229 000 €)</option><option value="pilnas">Su pilna apdaila (349 000 €)</option><option value="kita">Noriu sužinoti daugiau</option></select>
           </div>
-          <div class="fg"><label for="s-msg">Klausimas ar komentaras</label><textarea id="s-msg" placeholder="Jūsų klausimai, pageidavimai..."></textarea></div>
+          <div class="fg"><label for="s-msg">Klausimas ar komentaras</label><textarea id="s-msg" name="message" placeholder="Jūsų klausimai, pageidavimai..."></textarea></div>
           <button type="submit" class="submit-btn">Siųsti užklausą</button>
           <div class="fsuccess" id="sale-success">Ačiū! Jūsų užklausa gauta. Susisieksime per 24 val.</div>
         </form>

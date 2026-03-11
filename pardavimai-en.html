@@ -537,15 +537,15 @@
       <div class="fade-up d1">
         <form class="cform2" id="sale-form" novalidate>
           <div class="frow">
-            <div class="fg"><label for="s-name">Name *</label><input type="text" id="s-name" placeholder="Your name" required /></div>
-            <div class="fg"><label for="s-phone">Phone *</label><input type="tel" id="s-phone" placeholder="+370 ..." required /></div>
+            <div class="fg"><label for="s-name">Name *</label><input type="text" id="s-name" name="name" placeholder="Your name" required /></div>
+            <div class="fg"><label for="s-phone">Phone *</label><input type="tel" id="s-phone" name="phone" placeholder="+370 ..." required /></div>
           </div>
-          <div class="fg"><label for="s-email">Email</label><input type="email" id="s-email" placeholder="your@email.com" /></div>
+          <div class="fg"><label for="s-email">Email</label><input type="email" id="s-email" name="email" placeholder="your@email.com" /></div>
           <div class="fg">
             <label for="s-type">Package of interest</label>
-            <select id="s-type"><option value="">Select...</option><option value="dalinis">With partial finish (229,000 €)</option><option value="pilnas">With full finish (349,000 €)</option><option value="kita">I would like to find out more</option></select>
+            <select id="s-type" name="package"><option value="">Select...</option><option value="dalinis">With partial finish (229,000 €)</option><option value="pilnas">With full finish (349,000 €)</option><option value="kita">I would like to find out more</option></select>
           </div>
-          <div class="fg"><label for="s-msg">Question or comment</label><textarea id="s-msg" placeholder="Your questions, requests..."></textarea></div>
+          <div class="fg"><label for="s-msg">Question or comment</label><textarea id="s-msg" name="message" placeholder="Your questions, requests..."></textarea></div>
           <button type="submit" class="submit-btn">Send enquiry</button>
           <div class="fsuccess" id="sale-success">Thank you! Your enquiry has been received. We will be in touch within 24 hours.</div>
         </form>

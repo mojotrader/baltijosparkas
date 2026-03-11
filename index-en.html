@@ -575,19 +575,19 @@
           <form class="vform" id="viewing-form" novalidate>
             <p class="vform-title">Book a viewing</p>
             <div class="frow">
-              <div class="fg"><label for="v-name">Name *</label><input type="text" id="v-name" placeholder="Your name" required /></div>
-              <div class="fg"><label for="v-phone">Phone *</label><input type="tel" id="v-phone" placeholder="+370 ..." required /></div>
+              <div class="fg"><label for="v-name">Name *</label><input type="text" id="v-name" name="name" placeholder="Your name" required /></div>
+              <div class="fg"><label for="v-phone">Phone *</label><input type="tel" id="v-phone" name="phone" placeholder="+370 ..." required /></div>
             </div>
-            <div class="fg"><label for="v-email">Email</label><input type="email" id="v-email" placeholder="your@email.com" /></div>
+            <div class="fg"><label for="v-email">Email</label><input type="email" id="v-email" name="email" placeholder="your@email.com" /></div>
             <div class="fg">
               <label for="v-type">Rental type *</label>
-              <select id="v-type" required><option value="">Select...</option><option value="vidutines">Medium-term (1–12 months)</option><option value="ilgalaike">Long-term (12+ months)</option></select>
+              <select id="v-type" name="rental_type" required><option value="">Select...</option><option value="vidutines">Medium-term (1–12 months)</option><option value="ilgalaike">Long-term (12+ months)</option></select>
             </div>
             <div class="frow">
-              <div class="fg"><label for="v-date">Preferred date</label><input type="date" id="v-date" /></div>
-              <div class="fg"><label for="v-time">Preferred time</label><input type="time" id="v-time" /></div>
+              <div class="fg"><label for="v-date">Preferred date</label><input type="date" id="v-date" name="date" /></div>
+              <div class="fg"><label for="v-time">Preferred time</label><input type="time" id="v-time" name="time" /></div>
             </div>
-            <div class="fg"><label for="v-msg">Additional information</label><textarea id="v-msg" placeholder="Questions, requests..."></textarea></div>
+            <div class="fg"><label for="v-msg">Additional information</label><textarea id="v-msg" name="message" placeholder="Questions, requests..."></textarea></div>
             <button type="submit" class="submit-btn">Register for viewing</button>
             <div class="fsuccess" id="viewing-success">Thank you! We will be in touch within 24 hours to confirm the viewing.</div>
           </form>
@@ -676,19 +676,19 @@
       <div class="fade-up d1">
         <form class="cform" id="contact-form" novalidate>
           <div class="frow">
-            <div class="fg"><label for="c-name">Name *</label><input type="text" id="c-name" placeholder="Your name" required /></div>
-            <div class="fg"><label for="c-phone">Phone</label><input type="tel" id="c-phone" placeholder="+370 ..." /></div>
+            <div class="fg"><label for="c-name">Name *</label><input type="text" id="c-name" name="name" placeholder="Your name" required /></div>
+            <div class="fg"><label for="c-phone">Phone</label><input type="tel" id="c-phone" name="phone" placeholder="+370 ..." /></div>
           </div>
-          <div class="fg"><label for="c-email">Email *</label><input type="email" id="c-email" placeholder="your@email.com" required /></div>
+          <div class="fg"><label for="c-email">Email *</label><input type="email" id="c-email" name="email" placeholder="your@email.com" required /></div>
           <div class="fg">
             <label for="c-type">Rental type</label>
-            <select id="c-type"><option value="">Select...</option><option value="short">Short-term rental</option><option value="mid">Medium-term rental</option><option value="long">Long-term rental</option><option value="other">Other</option></select>
+            <select id="c-type" name="rental_type"><option value="">Select...</option><option value="short">Short-term rental</option><option value="mid">Medium-term rental</option><option value="long">Long-term rental</option><option value="other">Other</option></select>
           </div>
           <div class="frow">
-            <div class="fg"><label for="c-from">Arrival</label><input type="date" id="c-from" /></div>
-            <div class="fg"><label for="c-to">Departure</label><input type="date" id="c-to" /></div>
+            <div class="fg"><label for="c-from">Arrival</label><input type="date" id="c-from" name="checkin" /></div>
+            <div class="fg"><label for="c-to">Departure</label><input type="date" id="c-to" name="checkout" /></div>
           </div>
-          <div class="fg"><label for="c-msg">Message</label><textarea id="c-msg" placeholder="Additional information, questions..."></textarea></div>
+          <div class="fg"><label for="c-msg">Message</label><textarea id="c-msg" name="message" placeholder="Additional information, questions..."></textarea></div>
           <button type="submit" class="submit-btn submit-btn-dark">Send enquiry</button>
           <div class="fsuccess" id="form-success">Thank you! Your message has been received. We will be in touch within 24 hours.</div>
         </form>

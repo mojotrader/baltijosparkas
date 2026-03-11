@@ -575,19 +575,19 @@
           <form class="vform" id="viewing-form" novalidate>
             <p class="vform-title">Užsiregistruokite apžiūrai</p>
             <div class="frow">
-              <div class="fg"><label for="v-name">Vardas *</label><input type="text" id="v-name" placeholder="Jūsų vardas" required /></div>
-              <div class="fg"><label for="v-phone">Telefonas *</label><input type="tel" id="v-phone" placeholder="+370 ..." required /></div>
+              <div class="fg"><label for="v-name">Vardas *</label><input type="text" id="v-name" name="name" placeholder="Jūsų vardas" required /></div>
+              <div class="fg"><label for="v-phone">Telefonas *</label><input type="tel" id="v-phone" name="phone" placeholder="+370 ..." required /></div>
             </div>
-            <div class="fg"><label for="v-email">El. paštas</label><input type="email" id="v-email" placeholder="jusu@email.lt" /></div>
+            <div class="fg"><label for="v-email">El. paštas</label><input type="email" id="v-email" name="email" placeholder="jusu@email.lt" /></div>
             <div class="fg">
               <label for="v-type">Nuomos tipas *</label>
-              <select id="v-type" required><option value="">Pasirinkite...</option><option value="vidutines">Vidutinės trukmės (1–12 mėn.)</option><option value="ilgalaike">Ilgalaikė (12+ mėn.)</option></select>
+              <select id="v-type" name="rental_type" required><option value="">Pasirinkite...</option><option value="vidutines">Vidutinės trukmės (1–12 mėn.)</option><option value="ilgalaike">Ilgalaikė (12+ mėn.)</option></select>
             </div>
             <div class="frow">
-              <div class="fg"><label for="v-date">Pageidaujama data</label><input type="date" id="v-date" /></div>
-              <div class="fg"><label for="v-time">Pageidaujamas laikas</label><input type="time" id="v-time" /></div>
+              <div class="fg"><label for="v-date">Pageidaujama data</label><input type="date" id="v-date" name="date" /></div>
+              <div class="fg"><label for="v-time">Pageidaujamas laikas</label><input type="time" id="v-time" name="time" /></div>
             </div>
-            <div class="fg"><label for="v-msg">Papildoma informacija</label><textarea id="v-msg" placeholder="Klausimai, pageidavimai..."></textarea></div>
+            <div class="fg"><label for="v-msg">Papildoma informacija</label><textarea id="v-msg" name="message" placeholder="Klausimai, pageidavimai..."></textarea></div>
             <button type="submit" class="submit-btn">Registruotis apžiūrai</button>
             <div class="fsuccess" id="viewing-success">Ačiū! Susisieksime per 24 val. dėl apžiūros datos.</div>
           </form>
@@ -676,19 +676,19 @@
       <div class="fade-up d1">
         <form class="cform" id="contact-form" novalidate>
           <div class="frow">
-            <div class="fg"><label for="c-name">Vardas *</label><input type="text" id="c-name" placeholder="Jūsų vardas" required /></div>
-            <div class="fg"><label for="c-phone">Telefonas</label><input type="tel" id="c-phone" placeholder="+370 ..." /></div>
+            <div class="fg"><label for="c-name">Vardas *</label><input type="text" id="c-name" name="name" placeholder="Jūsų vardas" required /></div>
+            <div class="fg"><label for="c-phone">Telefonas</label><input type="tel" id="c-phone" name="phone" placeholder="+370 ..." /></div>
           </div>
-          <div class="fg"><label for="c-email">El. paštas *</label><input type="email" id="c-email" placeholder="jusu@email.lt" required /></div>
+          <div class="fg"><label for="c-email">El. paštas *</label><input type="email" id="c-email" name="email" placeholder="jusu@email.lt" required /></div>
           <div class="fg">
             <label for="c-type">Nuomos tipas</label>
-            <select id="c-type"><option value="">Pasirinkite...</option><option value="short">Trumpalaikė nuoma</option><option value="mid">Vidutinės trukmės nuoma</option><option value="long">Ilgalaikė nuoma</option><option value="other">Kita</option></select>
+            <select id="c-type" name="rental_type"><option value="">Pasirinkite...</option><option value="short">Trumpalaikė nuoma</option><option value="mid">Vidutinės trukmės nuoma</option><option value="long">Ilgalaikė nuoma</option><option value="other">Kita</option></select>
           </div>
           <div class="frow">
-            <div class="fg"><label for="c-from">Atvykimas</label><input type="date" id="c-from" /></div>
-            <div class="fg"><label for="c-to">Išvykimas</label><input type="date" id="c-to" /></div>
+            <div class="fg"><label for="c-from">Atvykimas</label><input type="date" id="c-from" name="checkin" /></div>
+            <div class="fg"><label for="c-to">Išvykimas</label><input type="date" id="c-to" name="checkout" /></div>
           </div>
-          <div class="fg"><label for="c-msg">Žinutė</label><textarea id="c-msg" placeholder="Papildoma informacija, klausimai..."></textarea></div>
+          <div class="fg"><label for="c-msg">Žinutė</label><textarea id="c-msg" name="message" placeholder="Papildoma informacija, klausimai..."></textarea></div>
           <button type="submit" class="submit-btn submit-btn-dark">Siųsti užklausą</button>
           <div class="fsuccess" id="form-success">Ačiū! Jūsų žinutė gauta. Susisieksime per 24 val.</div>
         </form>
