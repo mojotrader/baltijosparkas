@@ -27,7 +27,7 @@ Kainos per parą:
 - Iki birželio 22 ir nuo rugsėjo 1: 80 €
 - Birželio 23 – liepos 2: 120 €
 - Liepos 3 – rugpjūčio 15: 200 €
-- Rugpjūčio 16–31: 120–280 €
+- Rugpjūčio 16–31: 120 €
 Susisiekti: labas@baltijosparkas.lt arba +370 691 65685
 
 ILGALAIKĖ NUOMA (12+ mėn.):
