@@ -18,7 +18,7 @@ Kainos per naktį:
 - Iki liepos 10: 120–190 €
 - Liepos 11 – rugpjūčio 23: 190–300 €
 - Rugpjūčio 24–30: 120–280 €
-- Nuo rugpjūčio 31: 120–280 €
+- Rugpjūčio 31–: 120–280 €
 Rezervuoti: https://ibe.sabeeapp.com/v3/p/Baltijos-parkas?p=76684af95e650161&lang=Lt
 Į kainą įeina: pilnai įrengtas namas, privati terasa su grilu, Wi-Fi, 65" TV, oro kondicionierius, 4 parkavimo vietos.
 
@@ -27,7 +27,7 @@ Kainos per parą:
 - Iki birželio 22 ir nuo rugsėjo 1: 80 €
 - Birželio 23 – liepos 2: 120 €
 - Liepos 3 – rugpjūčio 15: 200 €
-- Rugpjūčio 16–31: 120 €
+- Rugpjūčio 16–31: 120–280 €
 Susisiekti: labas@baltijosparkas.lt arba +370 691 65685
 
 ILGALAIKĖ NUOMA (12+ mėn.):
