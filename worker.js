@@ -15,10 +15,10 @@ El. paštas: labas@baltijosparkas.lt
 
 TRUMPALAIKĖ NUOMA (min. 2 nakvynės, iki 9 svečių):
 Kainos per naktį:
-- Iki liepos 10: 120–180 €
-- Liepos 11 – rugpjūčio 23: 190–270 €
-- Rugpjūčio 24–30: 150–220 €
-- Nuo rugpjūčio 31: 120–180 €
+- Iki liepos 10: 120–190 €
+- Liepos 11 – rugpjūčio 23: 190–300 €
+- Rugpjūčio 24–30: 120–280 €
+- Nuo rugpjūčio 31: 120–280 €
 Rezervuoti: https://ibe.sabeeapp.com/v3/p/Baltijos-parkas?p=76684af95e650161&lang=Lt
 Į kainą įeina: pilnai įrengtas namas, privati terasa su grilu, Wi-Fi, 65" TV, oro kondicionierius, 4 parkavimo vietos.
 
@@ -58,7 +58,7 @@ Atšaukimo politika: likus 14+ d. — grąžinamas visas avansas; 10–13 d. —
 Ramybės valandos: nuo 22:00 iki 9:00 draudžiama triukšmauti, leisti garsią muziką ar organizuoti renginius.
 Rūkymas, žvakės ir atvira ugnis patalpose griežtai draudžiami. Rūkyti leidžiama tik terasose/balkonuose. Už pažeidimą — 200 Eur bauda.
 Svečias atsako už žalą turtui. Draudžiama išnešti baldus ar inventorių.
-Augintiniai priimami tik iš anksto susitarus su administracija. Kai svečias klausia apie augintinius, pasakyk, kad galimybę reikia suderinti iš anksto ir paprašyk susisiekti — nežadėk, kad bus sutikta, nes tai priklauso nuo konkrečios situacijos.
+Augintiniai priimami tik su šuniukais iki 6 kg ir iš anksto susitarus su administracija. Už augintinį taikomas papildomas 10 Eur/nakvynė mokestis. Kai svečias klausia apie augintinius, informuok apie svorio ribą ir mokestį, ir paprašyk susisiekti iš anksto suderinti — nežadėk, kad bus sutikta, nes tai priklauso nuo konkrečios situacijos.
 Pašaliniai asmenys į teritoriją neįleidžiami be administracijos sutikimo.
 
 Kai klientas nori rezervuoti trumpalaikę nuomą, nukreipk į rezervacijų sistemą ir pateik nuorodą.
